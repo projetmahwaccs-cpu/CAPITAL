@@ -224,5 +224,592 @@
   </div>
 
 </section>
+ <section class="products-section">
+  <style>
+    .products-section {
+      background: #f0f6ff;
+      padding: 60px 40px;
+      text-align: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .products-section .section-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #1a1a2e;
+      margin-bottom: 14px;
+    }
+
+    .products-section .section-subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 50px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+    }
+
+    .product-card img {
+      width: 100%;
+      max-width: 220px;
+      height: 180px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a1a2e;
+    }
+
+    @media (max-width: 768px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <h2 class="section-title">Our Products</h2>
+  <p class="section-subtitle">
+    From start to finish, our process is designed to provide premium quality products.
+  </p>
+
+  <div class="products-grid">
+
+    <!-- Produit 1 -->
+    <div class="product-card">
+      <img src="product-paper.png" alt="Capital Paper" />
+      <span class="product-name">Capital Paper</span>
+    </div>
+
+    <!-- Produit 2 -->
+    <div class="product-card">
+      <img src="product-office.png" alt="Capital Office Supplies" />
+      <span class="product-name">Capital Office Supplies</span>
+    </div>
+
+    <!-- Produit 3 -->
+    <div class="product-card">
+      <img src="product-stationery.png" alt="Capital Stationery" />
+      <span class="product-name">Capital Stationery</span>
+    </div>
+
+    <!-- Produit 4 -->
+    <div class="product-card">
+      <img src="product-care.png" alt="Capital Care" />
+      <span class="product-name">Capital Care</span>
+    </div>
+
+  </div>
+
+</section>
+ <section class="fastprint-section">
+  <style>
+    .fastprint-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      padding: 40px 80px;
+      min-height: 420px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .fastprint-image {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      max-width: 550px;
+    }
+
+    .fastprint-image img {
+      width: 100%;
+      max-width: 520px;
+      object-fit: contain;
+    }
+
+    .fastprint-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+      padding-left: 60px;
+    }
+
+    .fastprint-logo {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .fastprint-logo .brand-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1565c0;
+      display: block;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .fastprint-logo .fast {
+      font-style: italic;
+      font-weight: 900;
+      color: #1565c0;
+    }
+
+    .fastprint-logo .print {
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(90deg, #e53935, #fb8c00, #fdd835, #43a047, #1e88e5, #8e24aa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .fastprint-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #222;
+      margin: 0;
+    }
+
+    .fastprint-subtitle {
+      font-size: 15px;
+      color: #555;
+      margin: 0;
+    }
+
+    .btn-learn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 1.5px solid #222;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #222;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-learn:hover {
+      background: #222;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .fastprint-section {
+        flex-direction: column;
+        padding: 40px 24px;
+        text-align: center;
+      }
+      .fastprint-content {
+        align-items: center;
+        padding-left: 0;
+        padding-top: 30px;
+      }
+    }
+  </style>
+
+  <!-- Image gauche -->
+  <div class="fastprint-image">
+    <img src="fastprint-visuel.png" alt="Capital Fastprint" />
+  </div>
+
+  <!-- Contenu droite -->
+  <div class="fastprint-content">
+
+    <div class="fastprint-logo">
+      <div>
+        <span class="brand-name">Capital</span>
+        <span>
+          <span class="fast">fast</span><span class="print">print</span>
+        </span>
+      </div>
+    </div>
+
+    <h2 class="fastprint-title">Capital Fastprint</h2>
+    <p class="fastprint-subtitle">Sharper, Smoother, Vibrant</p>
+    <a href="#" class="btn-learn">Learn More</a>
+
+  </div>
+
+</section>
+ <section class="cta-duo">
+  <style>
+    .cta-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      min-height: 420px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .cta-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 60px 0;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cta-card-left {
+      background: linear-gradient(160deg, #c8e6f5 0%, #a8d8f0 100%);
+    }
+
+    .cta-card-right {
+      background: linear-gradient(160deg, #b8d8f0 0%, #90c4e8 100%);
+    }
+
+    .cta-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a2a3a;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border: 1.5px solid #1a2a3a;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a2a3a;
+      background: transparent;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .cta-btn:hover {
+      background: #1a2a3a;
+      color: #fff;
+    }
+
+    .cta-visual {
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      margin-top: auto;
+    }
+
+    /* Carte gauche : texte Shop Online */
+    .shop-label {
+      position: absolute;
+      bottom: 120px;
+      left: 60px;
+      font-size: 30px;
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .shop-label .shop {
+      color: #1565c0;
+      display: block;
+    }
+
+    .shop-label .online {
+      color: #e65100;
+      display: block;
+    }
+
+    .cta-visual img {
+      max-width: 320px;
+      width: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .cta-duo {
+        grid-template-columns: 1fr;
+      }
+      .cta-card {
+        min-height: 380px;
+        padding: 40px 30px 0;
+      }
+    }
+  </style>
+
+  <!-- Carte gauche : BUY US ONLINE -->
+  <div class="cta-card cta-card-left">
+    <h2 class="cta-title">Buy Us Online<br>Anywhere, Anytime</h2>
+    <a href="#" class="cta-btn">Buy Online &rsaquo;</a>
+
+    <div class="cta-visual">
+      <div class="shop-label">
+        <span class="shop">Shop</span>
+        <span class="online">Online</span>
+      </div>
+      <img src="shop-online-visual.png" alt="Shop Online" />
+    </div>
+  </div>
+
+  <!-- Carte droite : FIND OUR SELLERS -->
+  <div class="cta-card cta-card-right">
+    <h2 class="cta-title">Find Our Sellers<br>Worldwide</h2>
+    <a href="#" class="cta-btn">Become Our Partner</a>
+
+    <div class="cta-visual">
+      <img src="partners-visual.png" alt="Find Our Sellers Worldwide" />
+    </div>
+  </div>
+
+</section>
+ <section class="global-presence">
+  <style>
+    .global-presence {
+      position: relative;
+      width: 100%;
+      min-height: 380px;
+      background-image: url('globe-visual.jpg');
+      background-size: cover;
+      background-position: center right;
+      display: flex;
+      align-items: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Overlay dégradé bleu foncé à gauche */
+    .global-presence::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(5, 15, 60, 0.95) 0%,
+        rgba(5, 15, 60, 0.80) 35%,
+        rgba(5, 15, 60, 0.20) 65%,
+        transparent 100%
+      );
+    }
+
+    .global-content {
+      position: relative;
+      z-index: 1;
+      padding: 60px 80px;
+      max-width: 460px;
+    }
+
+    .global-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .global-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .btn-learn {
+      display: inline-block;
+      padding: 13px 36px;
+      border: 1.5px solid #fff;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-learn:hover {
+      background: #fff;
+      color: #05163c;
+    }
+
+    @media (max-width: 768px) {
+      .global-content {
+        padding: 50px 30px;
+      }
+      .global-title {
+        font-size: 22px;
+      }
+    }
+  </style>
+
+  <div class="global-content">
+    <h2 class="global-title">Global Presence</h2>
+    <p class="global-text">
+      Trusted, love and reliable – in more than<br>130 countries.
+    </p>
+    <a href="#" class="btn-learn">Learn More</a>
+  </div>
+
+</section>
+ <section class="sustainability-duo">
+  <style>
+    .sustainability-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      min-height: 460px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .sustain-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 60px;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      min-height: 460px;
+    }
+
+    .sustain-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(220, 235, 245, 0.55);
+    }
+
+    .sustain-card-left {
+      background-image: url('factory-visual.jpg');
+    }
+
+    .sustain-card-right {
+      background-image: url('nature-visual.jpg');
+    }
+
+    .sustain-content {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+    }
+
+    .sustain-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a2a3a;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .sustain-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .btn-learn {
+      display: inline-block;
+      padding: 12px 36px;
+      border: 1.5px solid #1a2a3a;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a2a3a;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-learn:hover {
+      background: #1a2a3a;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .sustainability-duo {
+        grid-template-columns: 1fr;
+      }
+      .sustain-card {
+        min-height: 380px;
+        padding: 40px 30px;
+      }
+    }
+  </style>
+
+  <!-- Carte gauche : QUALITY MEETS SUSTAINABILITY -->
+  <div class="sustain-card sustain-card-left">
+    <div class="sustain-content">
+      <h2 class="sustain-title">Quality Meets Sustainability</h2>
+      <p class="sustain-text">
+        Sustainability first but never compromise on the quality.
+      </p>
+      <a href="#" class="btn-learn">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Carte droite : A SUSTAINABLE BEGINNING -->
+  <div class="sustain-card sustain-card-right">
+    <div class="sustain-content">
+      <h2 class="sustain-title">A Sustainable Beginning</h2>
+      <p class="sustain-text">
+        Capital's purposed grown trees, a breath of fresh air for
+        our planet, solution for a greener world.
+      </p>
+      <a href="#" class="btn-learn">Learn More</a>
+    </div>
+  </div>
+
+</section>
 </body>
 </html>
