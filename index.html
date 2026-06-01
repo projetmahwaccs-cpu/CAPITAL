@@ -400,8 +400,160 @@
     mainHeader.classList.toggle('scrolled', window.scrollY > 60);
   });
 </script>
+<!-- Section : Better Paper, Better World -->
+<section class="brand-showcase-section">
+    <div class="showcase-container">
+        
+        <!-- Bloc Gauche : Better Paper -->
+        <div class="showcase-text text-left">
+            <h2>BETTER <span>PAPER</span></h2>
+        </div>
 
+        <!-- Bloc Central : Vidéo Circulaire CAPITAL -->
+        <div class="showcase-media">
+            <div class="circle-video-wrapper">
+                <video autoplay loop muted playsinline class="brand-video">
+                    <source src="votre-video-capital.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+            </div>
+            <!-- Ombre douce sous le cercle -->
+            <div class="circle-shadow"></div>
+        </div>
 
+        <!-- Bloc Droite : Better World -->
+        <div class="showcase-text text-right">
+            <h2>BETTER <span>WORLD</span></h2>
+        </div>
+
+    </div>
+</section>
+<style>     /* --- Styles de la Section Showcase --- */
+.brand-showcase-section {
+    width: 100%;
+    padding: 60px 20px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif; /* À remplacer par votre police de marque si nécessaire */
+}
+
+.showcase-container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+/* --- Styles du Texte --- */
+.showcase-text h2 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #4a4a4a;
+    letter-spacing: 2px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.showcase-text h2 span {
+    color: #0045ff; /* Bleu vif de la marque CAPITAL */
+    font-weight: 600;
+}
+
+.text-left {
+    text-align: right;
+    flex: 1;
+}
+
+.text-right {
+    text-align: left;
+    flex: 1;
+}
+
+/* --- Conteneur Média & Vidéo Circulaire --- */
+.showcase-media {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.circle-video-wrapper {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #0045ff; /* Fond bleu de sécurité pendant le chargement */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 69, 255, 0.2);
+}
+
+.brand-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Assure que la vidéo remplit parfaitement le cercle sans se déformer */
+}
+
+/* --- Ombre au Sol sous le Cercle --- */
+.circle-shadow {
+    width: 180px;
+    height: 12px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    margin-top: 25px;
+    border-radius: 50%;
+    filter: blur(2px);
+}
+
+/* --- Optimisation Mobile (Responsive) --- */
+@media (max-width: 768px) {
+    .showcase-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .text-left, .text-right {
+        text-align: center;
+        order: unset;
+    }
+    
+    /* Place la vidéo au centre entre les deux textes sur mobile si désiré */
+    .text-left { order: 1; }
+    .showcase-media { order: 2; }
+    .text-right { order: 3; }
+
+    .circle-video-wrapper {
+        width: 220px;
+        height: 220px;
+    }
+}
+</style>
+     <!-- Insertion du JavaScript pour la gestion de la vidéo CAPITAL -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Sélection de la vidéo dans la section showcase
+        const brandVideo = document.querySelector('.brand-video');
+
+        if (brandVideo) {
+            // Force la lecture si le navigateur mobile bloque l'autoplay
+            brandVideo.play().catch(function(error) {
+                console.log("L'autoplay a été bloqué par le navigateur. Attente d'une interaction utilisateur.");
+                
+                // Relance la vidéo dès que l'utilisateur touche ou clique sur l'écran
+                document.body.addEventListener('click', function() {
+                    brandVideo.play();
+                }, { once: true });
+            });
+        }
+    });
+</script>
 <!-- ============================================================
      SECTION : OUR STORY / OUR BELIEF
      ============================================================ -->
