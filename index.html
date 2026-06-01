@@ -101,5 +101,128 @@
     <button>Senegal ▾</button>
   </nav>
 </header>
+
+ <section class="section-duo">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .section-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      height: 460px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 48px 60px;
+      text-align: center;
+    }
+
+    .card-story {
+      background-image: url('votre-image-nature.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-story::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .card-belief {
+      background-color: #d9d9d9;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+    }
+
+    .card-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: Georgia, serif;
+    }
+
+    .card-story .card-title { color: #fff; }
+    .card-belief .card-title { color: #222; }
+
+    .card-text {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .card-story .card-text { color: rgba(255,255,255,0.92); }
+    .card-belief .card-text { color: #444; }
+
+    .btn-learn {
+      display: inline-block;
+      padding: 12px 32px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .card-story .btn-learn {
+      color: #fff;
+      border: 1.5px solid #fff;
+    }
+    .card-story .btn-learn:hover { background: rgba(255,255,255,0.15); }
+
+    .card-belief .btn-learn {
+      color: #222;
+      border: 1.5px solid #222;
+    }
+    .card-belief .btn-learn:hover { background: rgba(0,0,0,0.08); }
+
+    @media (max-width: 768px) {
+      .section-duo { grid-template-columns: 1fr; height: auto; }
+      .card { height: 400px; }
+    }
+  </style>
+
+  <!-- Carte gauche : OUR STORY -->
+  <div class="card card-story">
+    <div class="card-content">
+      <h2 class="card-title">Our Story</h2>
+      <p class="card-text">
+        Under our 'Better Paper, Better World' vision, we deliver premium
+        quality product with positive environmental and social impact.
+      </p>
+      <a href="#" class="btn-learn">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Carte droite : OUR BELIEF -->
+  <div class="card card-belief">
+    <div class="card-content">
+      <h2 class="card-title">Our Belief</h2>
+      <p class="card-text">
+        Capital's unique premium quality is the result of years of
+        innovation and hard work.
+      </p>
+      <a href="#" class="btn-learn">Learn More</a>
+    </div>
+  </div>
+
+</section>
 </body>
 </html>
