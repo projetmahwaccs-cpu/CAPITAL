@@ -337,9 +337,132 @@ section>*{position:relative;z-index:2}
 .map-pin .a{font-size:.76rem;color:var(--muted);margin-top:4px}
 @media(max-width:920px){.map-wrap{height:320px}.map-pin{position:static;max-width:none;margin-bottom:0;box-shadow:none;border-bottom:1px solid var(--line)}}
 
+/* ===== BOUTIQUE ===== */
+#boutique{background:var(--white)}
+.shop-head{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-bottom:14px}
+.shop-lead{max-width:560px}
+.shop-note{display:flex;align-items:center;gap:10px;font-size:.74rem;color:var(--muted);background:var(--blue-50);border-left:3px solid var(--orange);padding:12px 16px}
+.shop-note svg{width:17px;height:17px;stroke:var(--orange);fill:none;stroke-width:1.7;flex:0 0 17px}
+.shop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:44px}
+.card{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;transition:.3s;position:relative;overflow:hidden}
+.card:hover{box-shadow:0 18px 44px rgba(18,35,71,.13);transform:translateY(-4px)}
+.card-media{position:relative;background:var(--blue-50);padding:26px;display:flex;align-items:center;justify-content:center;min-height:230px;border-bottom:1px solid var(--line)}
+.card-media img{max-width:88%;max-height:200px;object-fit:contain;display:block}
+.card-flag{position:absolute;top:14px;left:14px;background:var(--orange);color:#fff;font-size:.6rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;padding:6px 12px}
+.card-mult{position:absolute;right:16px;bottom:16px;background:var(--blue-700);color:#fff;font-family:var(--serif);font-size:1.5rem;font-weight:700;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(18,35,71,.24)}
+.card-body{padding:26px 26px 24px;display:flex;flex-direction:column;flex:1}
+.card-body h3{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--blue-900)}
+.card-body .ref{font-size:.62rem;letter-spacing:.2em;color:var(--blue-600);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.card-body .sub{font-size:.82rem;color:var(--muted);margin-top:6px}
+.card-feat{list-style:none;margin:16px 0 0}
+.card-feat li{font-size:.78rem;color:var(--muted);padding:4px 0 4px 16px;position:relative}
+.card-feat li::before{content:"";position:absolute;left:0;top:12px;width:7px;height:2px;background:var(--orange)}
+.card-price{display:flex;align-items:baseline;gap:10px;margin:20px 0 4px;padding-top:18px;border-top:1px solid var(--line)}
+.card-price .p{font-family:var(--serif);font-size:1.85rem;font-weight:700;color:var(--blue-800)}
+.card-price .cur{font-size:.72rem;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.card-price .old{font-size:.8rem;color:#9aabc4;text-decoration:line-through}
+.card-save{font-size:.68rem;letter-spacing:.1em;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:16px}
+.card-actions{display:flex;gap:12px;margin-top:auto;padding-top:16px}
+.qty{display:flex;align-items:center;border:1.5px solid var(--line);flex:0 0 auto}
+.qty button{width:38px;height:44px;background:#fff;border:none;cursor:pointer;font-size:1.15rem;color:var(--blue-700);font-weight:600;transition:.2s;line-height:1}
+.qty button:hover{background:var(--blue-50)}
+.qty input{width:44px;height:44px;border:none;text-align:center;font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--ink);outline:none;-moz-appearance:textfield}
+.qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.add-btn{
+  flex:1;background:var(--blue-600);border:none;cursor:pointer;color:#fff;font-family:var(--sans);
+  font-size:.7rem;letter-spacing:.18em;font-weight:700;text-transform:uppercase;padding:0 14px;height:44px;
+  transition:.3s;display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.add-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+.add-btn:hover{background:var(--blue-800)}
+.add-btn.done{background:var(--orange)}
+
+/* Bandeau infos livraison */
+.shop-info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.shop-info .i{display:flex;gap:14px;align-items:flex-start;background:var(--blue-50);border:1px solid var(--line);padding:20px 22px}
+.shop-info svg{width:24px;height:24px;stroke:var(--blue-600);fill:none;stroke-width:1.5;flex:0 0 24px;margin-top:2px}
+.shop-info .t{font-size:.8rem;font-weight:700;color:var(--blue-900)}
+.shop-info .d{font-size:.75rem;color:var(--muted);margin-top:2px}
+
+/* ===== PANIER ===== */
+.cart-fab{
+  position:fixed;right:24px;bottom:24px;z-index:1200;width:60px;height:60px;border-radius:50%;
+  background:var(--blue-700);border:none;cursor:pointer;box-shadow:0 10px 30px rgba(13,42,95,.36);
+  display:flex;align-items:center;justify-content:center;transition:.3s;
+}
+.cart-fab:hover{background:var(--blue-800);transform:scale(1.06)}
+.cart-fab svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.7}
+.cart-fab .count{
+  position:absolute;top:-4px;right:-4px;min-width:24px;height:24px;border-radius:12px;background:var(--orange);
+  color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 6px;
+  border:2px solid #fff;opacity:0;transform:scale(.5);transition:.3s;
+}
+.cart-fab .count.on{opacity:1;transform:scale(1)}
+.cart-overlay{position:fixed;inset:0;background:rgba(9,26,60,.55);z-index:1300;opacity:0;visibility:hidden;transition:.35s}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-panel{
+  position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);background:#fff;z-index:1400;
+  transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;box-shadow:-14px 0 44px rgba(9,26,60,.24);
+}
+.cart-panel.open{transform:none}
+.cart-top{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid var(--line);background:var(--blue-900)}
+.cart-top h3{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:#fff}
+.cart-top .sub{font-size:.66rem;letter-spacing:.2em;color:var(--orange);font-weight:700;text-transform:uppercase}
+.cart-close{background:none;border:none;cursor:pointer;padding:6px;line-height:0}
+.cart-close svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8}
+.cart-body{flex:1;overflow-y:auto;padding:22px 26px}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.cart-empty svg{width:52px;height:52px;stroke:var(--blue-200);fill:none;stroke-width:1.3;margin-bottom:16px}
+.cart-empty p{font-size:.86rem}
+.ci{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.ci-img{flex:0 0 66px;height:66px;background:var(--blue-50);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ci-img img{max-width:88%;max-height:88%;object-fit:contain}
+.ci-info{flex:1;min-width:0}
+.ci-info h4{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--blue-900);line-height:1.25}
+.ci-info .u{font-size:.7rem;color:var(--muted);margin-top:2px}
+.ci-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px}
+.ci-qty{display:flex;align-items:center;border:1px solid var(--line)}
+.ci-qty button{width:28px;height:28px;background:#fff;border:none;cursor:pointer;color:var(--blue-700);font-size:.95rem;font-weight:700;line-height:1;transition:.2s}
+.ci-qty button:hover{background:var(--blue-50)}
+.ci-qty span{width:30px;text-align:center;font-size:.8rem;font-weight:700}
+.ci-price{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--blue-800);white-space:nowrap}
+.ci-del{background:none;border:none;cursor:pointer;padding:4px;line-height:0}
+.ci-del svg{width:15px;height:15px;stroke:#a8b6cc;fill:none;stroke-width:1.7;transition:.2s}
+.ci-del:hover svg{stroke:#d9534f}
+.cart-foot{border-top:1px solid var(--line);padding:20px 26px 24px;background:var(--blue-50)}
+.cart-line{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:8px}
+.cart-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:12px;border-top:1px solid var(--line);margin-bottom:16px}
+.cart-total .l{font-size:.74rem;letter-spacing:.2em;font-weight:700;text-transform:uppercase;color:var(--blue-900)}
+.cart-total .v{font-family:var(--serif);font-size:1.75rem;font-weight:700;color:var(--blue-800)}
+.cart-cta{display:flex;flex-direction:column;gap:10px}
+.wa-btn,.mail-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;text-decoration:none;border:none;cursor:pointer;
+  font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;font-weight:700;text-transform:uppercase;transition:.3s;
+}
+.wa-btn{background:#25d366;color:#fff}
+.wa-btn:hover{background:#1fb856;box-shadow:0 8px 22px rgba(37,211,102,.34)}
+.mail-btn{background:#fff;border:1.5px solid var(--blue-600);color:var(--blue-700)}
+.mail-btn:hover{background:var(--blue-600);color:#fff}
+.wa-btn svg,.mail-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
+.cart-legal{font-size:.68rem;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+.toast{
+  position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);z-index:1500;
+  background:var(--blue-900);color:#fff;padding:14px 24px;font-size:.78rem;font-weight:600;
+  box-shadow:0 12px 34px rgba(9,26,60,.34);opacity:0;visibility:hidden;transition:.3s;
+  display:flex;align-items:center;gap:10px;
+}
+.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.toast svg{width:17px;height:17px;stroke:var(--orange);fill:none;stroke-width:2}
+@media(max-width:920px){
+  .shop-grid{grid-template-columns:1fr}
+  .shop-info{grid-template-columns:1fr}
+  .cart-fab{right:16px;bottom:16px;width:54px;height:54px}
+}
+
 /* ===== Fondus entre sections ===== */
-#apropos,#produit,#doctrine,#expertise,#management,#references,#contact{padding-bottom:190px}
-#apropos::after,#produit::after,#doctrine::after,#expertise::after,
+#apropos,#produit,#boutique,#doctrine,#expertise,#management,#references,#contact{padding-bottom:190px}
+#apropos::after,#produit::after,#boutique::after,#doctrine::after,#expertise::after,
 #management::after,#references::after,#contact::after{
   content:"";position:absolute;left:0;right:0;bottom:0;height:180px;pointer-events:none;z-index:1;
 }
@@ -350,14 +473,20 @@ section>*{position:relative;z-index:2}
 #management::after{
   background:linear-gradient(180deg,rgba(244,248,253,0) 0%,rgba(255,255,255,.55) 55%,#fff 100%)}
 /* bleu clair -> bleu profond */
-#produit::after,#contact::after{
+#contact::after{
   background:linear-gradient(180deg,rgba(244,248,253,0) 0%,rgba(30,66,124,.5) 58%,#0d2a5f 100%)}
+/* bleu clair -> blanc (produit -> boutique) */
+#produit::after{
+  background:linear-gradient(180deg,rgba(244,248,253,0) 0%,rgba(255,255,255,.55) 55%,#fff 100%)}
+/* blanc -> bleu profond (boutique -> doctrine) */
+#boutique::after{
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(30,66,124,.45) 58%,#0d2a5f 100%)}
 /* bleu profond -> blanc */
 #doctrine::after{
   background:linear-gradient(180deg,rgba(13,42,95,0) 0%,rgba(120,160,210,.45) 55%,#fff 100%)}
 @media(max-width:920px){
-  #apropos,#produit,#doctrine,#expertise,#management,#references,#contact{padding-bottom:130px}
-  #apropos::after,#produit::after,#doctrine::after,#expertise::after,
+  #apropos,#produit,#boutique,#doctrine,#expertise,#management,#references,#contact{padding-bottom:130px}
+  #apropos::after,#produit::after,#boutique::after,#doctrine::after,#expertise::after,
   #management::after,#references::after,#contact::after{height:120px}
 }
 
@@ -427,6 +556,7 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
     <a href="#accueil" data-i18n="navHome">Accueil</a>
     <a href="#apropos" data-i18n="navAbout">À propos</a>
     <a href="#produit" data-i18n="navProd">Produits</a>
+    <a href="#boutique" data-i18n="navShop">Boutique</a>
     <a href="#doctrine" data-i18n="navDoctrine">Notre doctrine</a>
     <a href="#expertise" data-i18n="navExpertise">Notre expertise</a>
     <a href="#management" data-i18n="navMgmt">Management</a>
@@ -518,6 +648,104 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
     </div>
   </div>
   <div class="photo-frame prod-strip reveal"><img src="assets/equipe-affiche.jpg" alt="L'équipe CAPITAL devant la gamme Papier A4" loading="lazy"><div class="cap"><p class="t" data-i18n="capProd">Papier A4 — 80 g/m² · 500 feuilles</p><p class="s" data-i18n="capProdS">Plus lisse · Plus épais</p></div></div>
+</section>
+
+<!-- ================= BOUTIQUE ================= -->
+<section id="boutique">
+  <p class="eyebrow reveal" data-i18n="shopEyebrow">Boutique</p>
+  <div class="shop-head reveal">
+    <div class="shop-lead">
+      <p class="serif-lead" data-i18n-html="shopLead">Commandez votre papier <span class="gold">en quelques clics</span></p>
+    </div>
+    <div class="shop-note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span data-i18n="shopNote">Paiement à la livraison — commande confirmée par téléphone</span>
+    </div>
+  </div>
+
+  <div class="shop-grid">
+    <!-- Ramette -->
+    <article class="card reveal">
+      <div class="card-media">
+        <span class="card-flag" data-i18n="flagUnit">À l'unité</span>
+        <img src="assets/ramette.jpg" alt="Ramette CAPITAL Premium A4 80g">
+      </div>
+      <div class="card-body">
+        <p class="ref">CAP-A4-80</p>
+        <h3 data-i18n="p1n">Ramette CAPITAL Premium A4</h3>
+        <p class="sub" data-i18n="p1s">500 feuilles · 80 g/m² · Format A4</p>
+        <ul class="card-feat">
+          <li data-i18n="p1f1">Plus lisse, plus épais</li>
+          <li data-i18n="p1f2">Photocopie · Laser · Jet d'encre</li>
+          <li data-i18n="p1f3">Blancheur élevée, rendu net</li>
+        </ul>
+        <div class="card-price">
+          <span class="p">3 500</span><span class="cur">FCFA</span>
+        </div>
+        <p class="card-save" data-i18n="p1u">Prix à la ramette</p>
+        <div class="card-actions">
+          <div class="qty">
+            <button type="button" data-step="ramette,-1" aria-label="Moins">−</button>
+            <input type="number" id="q-ramette" value="1" min="1" max="999" aria-label="Quantité">
+            <button type="button" data-step="ramette,1" aria-label="Plus">+</button>
+          </div>
+          <button class="add-btn" data-add="ramette">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+            <span data-i18n="addCart">Ajouter</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Carton -->
+    <article class="card reveal d1">
+      <div class="card-media">
+        <span class="card-flag" data-i18n="flagBest">Le plus avantageux</span>
+        <img src="assets/ramette.jpg" alt="Carton de 5 ramettes CAPITAL Premium A4">
+        <span class="card-mult">×5</span>
+      </div>
+      <div class="card-body">
+        <p class="ref">CAP-A4-80-C5</p>
+        <h3 data-i18n="p2n">Carton de 5 ramettes</h3>
+        <p class="sub" data-i18n="p2s">2 500 feuilles · 80 g/m² · Format A4</p>
+        <ul class="card-feat">
+          <li data-i18n="p2f1">5 ramettes de 500 feuilles</li>
+          <li data-i18n="p2f2">Idéal bureaux, écoles et administrations</li>
+          <li data-i18n="p2f3">Emballage carton protégé</li>
+        </ul>
+        <div class="card-price">
+          <span class="p">14 500</span><span class="cur">FCFA</span><span class="old">17 500</span>
+        </div>
+        <p class="card-save" data-i18n="p2save">Vous économisez 3 000 FCFA</p>
+        <div class="card-actions">
+          <div class="qty">
+            <button type="button" data-step="carton,-1" aria-label="Moins">−</button>
+            <input type="number" id="q-carton" value="1" min="1" max="999" aria-label="Quantité">
+            <button type="button" data-step="carton,1" aria-label="Plus">+</button>
+          </div>
+          <button class="add-btn" data-add="carton">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+            <span data-i18n="addCart2">Ajouter</span>
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="shop-info reveal">
+    <div class="i">
+      <svg viewBox="0 0 24 24"><rect x="1" y="6" width="14" height="11"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      <div><p class="t" data-i18n="si1t">Livraison partout au Sénégal</p><p class="d" data-i18n="si1d">Dakar et régions — délai confirmé à la commande</p></div>
+    </div>
+    <div class="i">
+      <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+      <div><p class="t" data-i18n="si2t">Paiement à la livraison</p><p class="d" data-i18n="si2d">Espèces, Wave ou Orange Money</p></div>
+    </div>
+    <div class="i">
+      <svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4v6c0 4.4 3.4 7.6 8 8.5 4.6-.9 8-4.1 8-8.5z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div><p class="t" data-i18n="si3t">Tarifs dégressifs</p><p class="d" data-i18n="si3d">Gros volumes : demandez un devis</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- ================= DOCTRINE ================= -->
@@ -717,6 +945,53 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
   <p class="copy">© 2026 CAPITAL. <span data-i18n="rights">Tous droits réservés.</span></p>
   <p class="f-motto">Q U A L I T Y &nbsp; P E R F O R M A N C E &nbsp; T R U S T</p>
 </footer>
+<!-- ================= PANIER ================= -->
+<button class="cart-fab" id="cartFab" aria-label="Ouvrir le panier">
+  <svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+  <span class="count" id="cartCount">0</span>
+</button>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<aside class="cart-panel" id="cartPanel" aria-label="Panier">
+  <div class="cart-top">
+    <div>
+      <p class="sub" data-i18n="cartSub">Votre commande</p>
+      <h3 data-i18n="cartTitle">Panier</h3>
+    </div>
+    <button class="cart-close" id="cartClose" aria-label="Fermer">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="cart-body" id="cartBody"></div>
+
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-line"><span data-i18n="cartItems">Articles</span><span id="cartQty">0</span></div>
+    <div class="cart-line"><span data-i18n="cartDeliv">Livraison</span><span data-i18n="cartDelivV">À confirmer</span></div>
+    <div class="cart-total">
+      <span class="l" data-i18n="cartTotal">Total</span>
+      <span class="v" id="cartTotal">0 FCFA</span>
+    </div>
+    <div class="cart-cta">
+      <a class="wa-btn" id="waOrder" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.2-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+        <span data-i18n="orderWa">Commander sur WhatsApp</span>
+      </a>
+      <button class="mail-btn" id="mailOrder">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+        <span data-i18n="orderMail">Commander par email</span>
+      </button>
+    </div>
+    <p class="cart-legal" data-i18n="cartLegal">Votre commande sera confirmée par téléphone. Paiement à la livraison.</p>
+  </div>
+</aside>
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+  <span id="toastMsg"></span>
+</div>
+
 <script>
 /* ===== Barre de progression ===== */
 const prog=document.getElementById('progress');
@@ -891,6 +1166,36 @@ cTelT:{fr:'Téléphone',en:'Phone'},cHrT:{fr:'Horaires',en:'Opening hours'},
 cHr1:{fr:'Lundi à Vendredi — 08h30 à 18h00',en:'Monday to Friday — 8:30 am to 6:00 pm'},
 cHr2:{fr:'Samedi — 09h00 à 13h00',en:'Saturday — 9:00 am to 1:00 pm'},
 formTitle:{fr:'Envoyer un message',en:'Send a message'},
+navShop:{fr:'Boutique',en:'Shop'},
+shopEyebrow:{fr:'Boutique',en:'Shop'},
+shopLead:{fr:'Commandez votre papier <span class="gold">en quelques clics</span>',en:'Order your paper <span class="gold">in a few clicks</span>'},
+shopNote:{fr:'Paiement à la livraison — commande confirmée par téléphone',en:'Payment on delivery — order confirmed by phone'},
+flagUnit:{fr:'À l\'unité',en:'Single unit'},flagBest:{fr:'Le plus avantageux',en:'Best value'},
+p1n:{fr:'Ramette CAPITAL Premium A4',en:'CAPITAL Premium A4 ream'},
+p1s:{fr:'500 feuilles · 80 g/m² · Format A4',en:'500 sheets · 80 gsm · A4 size'},
+p1f1:{fr:'Plus lisse, plus épais',en:'Smoother, thicker'},
+p1f2:{fr:'Photocopie · Laser · Jet d\'encre',en:'Copy · Laser · Inkjet'},
+p1f3:{fr:'Blancheur élevée, rendu net',en:'High whiteness, sharp results'},
+p1u:{fr:'Prix à la ramette',en:'Price per ream'},
+p2n:{fr:'Carton de 5 ramettes',en:'Box of 5 reams'},
+p2s:{fr:'2 500 feuilles · 80 g/m² · Format A4',en:'2,500 sheets · 80 gsm · A4 size'},
+p2f1:{fr:'5 ramettes de 500 feuilles',en:'5 reams of 500 sheets'},
+p2f2:{fr:'Idéal bureaux, écoles et administrations',en:'Ideal for offices, schools and administrations'},
+p2f3:{fr:'Emballage carton protégé',en:'Protective cardboard packaging'},
+p2save:{fr:'Vous économisez 3 000 FCFA',en:'You save 3,000 FCFA'},
+addCart:{fr:'Ajouter',en:'Add'},addCart2:{fr:'Ajouter',en:'Add'},
+si1t:{fr:'Livraison partout au Sénégal',en:'Delivery nationwide in Senegal'},
+si1d:{fr:'Dakar et régions — délai confirmé à la commande',en:'Dakar and regions — lead time confirmed at order'},
+si2t:{fr:'Paiement à la livraison',en:'Payment on delivery'},
+si2d:{fr:'Espèces, Wave ou Orange Money',en:'Cash, Wave or Orange Money'},
+si3t:{fr:'Tarifs dégressifs',en:'Volume pricing'},
+si3d:{fr:'Gros volumes : demandez un devis',en:'Large volumes: request a quote'},
+cartSub:{fr:'Votre commande',en:'Your order'},cartTitle:{fr:'Panier',en:'Cart'},
+cartItems:{fr:'Articles',en:'Items'},cartDeliv:{fr:'Livraison',en:'Delivery'},
+cartDelivV:{fr:'À confirmer',en:'To be confirmed'},cartTotal:{fr:'Total',en:'Total'},
+orderWa:{fr:'Commander sur WhatsApp',en:'Order on WhatsApp'},
+orderMail:{fr:'Commander par email',en:'Order by email'},
+cartLegal:{fr:'Votre commande sera confirmée par téléphone. Paiement à la livraison.',en:'Your order will be confirmed by phone. Payment on delivery.'},
 mapTitle:{fr:'Nous trouver',en:'Find us'},
 mapSub:{fr:'Hann Mariste, en face de Coris Banque — Dakar, Sénégal',en:'Hann Mariste, opposite Coris Bank — Dakar, Senegal'},
 mapItin:{fr:'Itinéraire',en:'Directions'},mapOpen:{fr:'Ouvrir dans Maps',en:'Open in Maps'},
@@ -911,10 +1216,132 @@ function setLang(l){
   document.getElementById('btnFr').classList.toggle('on',l==='fr');
   document.getElementById('btnEn').classList.toggle('on',l==='en');
   goSlide(cur);
+  if(typeof renderCart==='function')renderCart();
   document.title=l==='fr'?'CAPITAL — Papier Premium | La qualité qui valorise chaque document':'CAPITAL — Premium Paper | The quality that enhances every document';
 }
 document.getElementById('btnFr').addEventListener('click',()=>setLang('fr'));
 document.getElementById('btnEn').addEventListener('click',()=>setLang('en'));
+
+/* ===================== BOUTIQUE & PANIER ===================== */
+const WA_NUMBER='221776990000';
+const SHOP_MAIL='contact@capitalpaper.sn';
+const P={
+  ramette:{price:3500,img:'assets/ramette.jpg',
+    fr:{n:'Ramette CAPITAL Premium A4',u:'500 feuilles · 80 g/m²'},
+    en:{n:'CAPITAL Premium A4 ream',u:'500 sheets · 80 gsm'}},
+  carton:{price:14500,img:'assets/ramette.jpg',
+    fr:{n:'Carton de 5 ramettes',u:'2 500 feuilles · 80 g/m²'},
+    en:{n:'Box of 5 reams',u:'2,500 sheets · 80 gsm'}}
+};
+let CART={};
+
+const money=n=>n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g,' ')+' FCFA';
+const CT={
+  fr:{empty:'Votre panier est vide',added:'Ajouté au panier',cartTitle:'Panier'},
+  en:{empty:'Your cart is empty',added:'Added to cart',cartTitle:'Cart'}
+};
+
+/* --- steppers des fiches produit --- */
+document.querySelectorAll('[data-step]').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const [id,d]=b.dataset.step.split(',');
+    const inp=document.getElementById('q-'+id);
+    inp.value=Math.max(1,Math.min(999,(parseInt(inp.value)||1)+parseInt(d)));
+  });
+});
+
+/* --- ajout au panier --- */
+document.querySelectorAll('[data-add]').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const id=b.dataset.add;
+    const q=Math.max(1,parseInt(document.getElementById('q-'+id).value)||1);
+    CART[id]=(CART[id]||0)+q;
+    renderCart();
+    b.classList.add('done');
+    setTimeout(()=>b.classList.remove('done'),900);
+    showToast(CT[LANG].added);
+  });
+});
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* --- rendu du panier --- */
+function renderCart(){
+  const body=document.getElementById('cartBody');
+  const foot=document.getElementById('cartFoot');
+  const ids=Object.keys(CART).filter(k=>CART[k]>0);
+  let total=0,units=0;
+
+  if(!ids.length){
+    body.innerHTML='<div class="cart-empty"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8a2 2 0 0 0 2-1.6L21 7H6"/></svg><p>'+CT[LANG].empty+'</p></div>';
+    foot.style.display='none';
+  }else{
+    body.innerHTML=ids.map(id=>{
+      const p=P[id],q=CART[id],line=p.price*q;
+      total+=line;units+=q;
+      return '<div class="ci">'
+       +'<div class="ci-img"><img src="'+p.img+'" alt=""></div>'
+       +'<div class="ci-info"><h4>'+p[LANG].n+'</h4><p class="u">'+p[LANG].u+' — '+money(p.price)+'</p>'
+       +'<div class="ci-bottom"><div class="ci-qty">'
+       +'<button data-cq="'+id+',-1">−</button><span>'+q+'</span><button data-cq="'+id+',1">+</button>'
+       +'</div><span class="ci-price">'+money(line)+'</span>'
+       +'<button class="ci-del" data-cdel="'+id+'" aria-label="Retirer"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>'
+       +'</div></div></div>';
+    }).join('');
+    foot.style.display='block';
+    document.getElementById('cartQty').textContent=units;
+    document.getElementById('cartTotal').textContent=money(total);
+    document.getElementById('waOrder').href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(orderText(ids,total));
+  }
+
+  const c=document.getElementById('cartCount');
+  c.textContent=units;
+  c.classList.toggle('on',units>0);
+
+  body.querySelectorAll('[data-cq]').forEach(b=>b.addEventListener('click',()=>{
+    const [id,d]=b.dataset.cq.split(',');
+    CART[id]=Math.max(0,CART[id]+parseInt(d));
+    if(!CART[id])delete CART[id];
+    renderCart();
+  }));
+  body.querySelectorAll('[data-cdel]').forEach(b=>b.addEventListener('click',()=>{
+    delete CART[b.dataset.cdel];renderCart();
+  }));
+}
+
+function orderText(ids,total){
+  const h=LANG==='fr'?'Bonjour CAPITAL, je souhaite commander :':'Hello CAPITAL, I would like to order:';
+  const lines=ids.map(id=>'• '+CART[id]+' × '+P[id][LANG].n+' — '+money(P[id].price*CART[id]));
+  const t=(LANG==='fr'?'TOTAL : ':'TOTAL: ')+money(total);
+  return h+'\n\n'+lines.join('\n')+'\n\n'+t;
+}
+
+/* --- ouverture / fermeture --- */
+const panel=document.getElementById('cartPanel'),ovl=document.getElementById('cartOverlay');
+function openCart(){panel.classList.add('open');ovl.classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){panel.classList.remove('open');ovl.classList.remove('open');document.body.style.overflow='';}
+document.getElementById('cartFab').addEventListener('click',openCart);
+document.getElementById('cartClose').addEventListener('click',closeCart);
+ovl.addEventListener('click',closeCart);
+addEventListener('keydown',e=>{if(e.key==='Escape')closeCart();});
+
+/* --- commande par email --- */
+document.getElementById('mailOrder').addEventListener('click',()=>{
+  const ids=Object.keys(CART).filter(k=>CART[k]>0);
+  if(!ids.length)return;
+  let total=0;ids.forEach(id=>total+=P[id].price*CART[id]);
+  const subj=LANG==='fr'?'Commande CAPITAL':'CAPITAL order';
+  location.href='mailto:'+SHOP_MAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(orderText(ids,total));
+});
+
+renderCart();
+
 </script>
 </body>
 </html>
