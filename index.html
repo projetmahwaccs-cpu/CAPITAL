@@ -88,11 +88,11 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 #accueil{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--blue-900)}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center;transform:scale(1.06)}
 .slide.on{opacity:1;transform:scale(1);transition:opacity 1.6s ease,transform 7s ease}
-.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,32,74,.82),rgba(13,42,95,.7) 45%,rgba(9,26,60,.92))}
+.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,32,74,.84),rgba(13,42,95,.7) 42%,rgba(9,26,60,.9) 80%)}
 .slide.s1{background-image:url('assets/siege.jpg')}
 .slide.s2{background-image:url('assets/equipe-reunion.jpg')}
 .slide.s3{background-image:url('assets/flotte.jpg')}
-.hero-inner{position:relative;z-index:2;text-align:center;padding:130px 20px 80px;max-width:900px}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:120px 20px 150px;max-width:900px}
 .hero-eyebrow{font-size:.72rem;letter-spacing:.5em;color:var(--orange);font-weight:700;margin-bottom:34px}
 .hero-logo{width:min(230px,58vw);margin:0 auto 30px;display:block;border-radius:50%;box-shadow:0 12px 44px rgba(0,0,0,.34)}
 .hero-name{font-family:var(--serif);font-size:clamp(2.6rem,7vw,4.6rem);font-weight:700;letter-spacing:.16em;color:#fff;line-height:1;margin-bottom:6px}
@@ -104,7 +104,7 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 .corner{position:absolute;width:54px;height:54px;border:1px solid rgba(255,255,255,.28);z-index:2}
 .corner.tl{top:120px;left:38px;border-right:none;border-bottom:none}
 .corner.tr{top:120px;right:38px;border-left:none;border-bottom:none}
-.presences{position:absolute;right:44px;bottom:56px;z-index:3;text-align:right}
+.presences{position:absolute;right:44px;bottom:190px;z-index:4;text-align:right}
 .presences h4{font-size:.66rem;letter-spacing:.3em;color:#b7c9e2;font-weight:700;margin-bottom:14px}
 .presences button{
   display:flex;align-items:center;gap:12px;margin-left:auto;background:none;border:none;cursor:pointer;
@@ -113,11 +113,13 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 .presences button::after{content:"";width:18px;height:2px;background:currentColor;transition:width .3s}
 .presences button.on{color:#fff}
 .presences button.on::after{width:38px;background:var(--orange)}
-.city-thumb{position:absolute;left:40px;bottom:56px;z-index:3}
+.city-thumb{position:absolute;left:40px;bottom:190px;z-index:4}
 .city-thumb .frame{width:108px;height:68px;border:2px solid rgba(255,255,255,.55);background-size:cover;background-position:center;background-color:var(--blue-800)}
 .city-thumb .c-name{font-size:.66rem;letter-spacing:.18em;color:#fff;font-weight:700;margin-top:9px}
 .city-thumb .c-sub{font-size:.6rem;color:#b7c9e2;letter-spacing:.06em}
-.scroll-cue{position:absolute;bottom:0;left:50%;width:2px;height:70px;background:linear-gradient(180deg,transparent,var(--orange));z-index:2}
+.scroll-cue{position:absolute;bottom:14px;left:50%;width:2px;height:64px;background:linear-gradient(180deg,transparent,var(--blue-600));z-index:4}
+.hero-fade{position:absolute;left:0;right:0;bottom:0;height:180px;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.35) 42%,rgba(255,255,255,.82) 72%,#fff 100%)}
 
 /* ===== Sections ===== */
 section{padding:110px 8vw;position:relative}
@@ -127,7 +129,7 @@ section{padding:110px 8vw;position:relative}
 .serif-lead .gold{color:var(--blue-600)}
 
 /* À propos */
-#apropos{background:var(--white)}
+#apropos{background:var(--white);padding-top:80px}
 .apropos-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;margin-top:60px;align-items:start}
 .apropos-left .mini-sep{width:44px;height:3px;background:var(--orange);margin:34px 0}
 .apropos-left .punch{font-family:var(--serif);font-size:1.3rem;color:var(--blue-900);font-weight:600}
@@ -306,6 +308,34 @@ section{padding:110px 8vw;position:relative}
 .form-note{font-size:.72rem;color:var(--muted);margin-top:12px;display:none}
 .form-note.show{display:block}
 
+/* Carte */
+.map-block{margin-top:70px}
+.map-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px;flex-wrap:wrap}
+.map-head h3{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--blue-900)}
+.map-head p{font-size:.8rem;color:var(--muted);margin-top:2px}
+.map-actions{display:flex;gap:12px;flex-wrap:wrap}
+.map-btn{
+  display:inline-flex;align-items:center;gap:9px;padding:11px 20px;text-decoration:none;
+  font-size:.68rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;transition:.3s;
+  border:1.5px solid var(--blue-600);color:var(--blue-700);background:#fff;
+}
+.map-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
+.map-btn:hover{background:var(--blue-600);color:#fff}
+.map-btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
+.map-btn.primary:hover{background:#d97f11;border-color:#d97f11}
+.map-wrap{
+  position:relative;height:420px;border:1px solid var(--line);border-top:4px solid var(--blue-600);
+  background:var(--blue-100);overflow:hidden;box-shadow:0 14px 40px rgba(18,35,71,.09);
+}
+.map-wrap iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.92)}
+.map-pin{
+  position:absolute;left:24px;top:24px;z-index:2;background:#fff;padding:16px 20px;
+  border-left:4px solid var(--orange);box-shadow:0 8px 26px rgba(18,35,71,.16);max-width:270px;
+}
+.map-pin .n{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--blue-900)}
+.map-pin .a{font-size:.76rem;color:var(--muted);margin-top:4px}
+@media(max-width:920px){.map-wrap{height:320px}.map-pin{position:static;max-width:none;margin-bottom:0;box-shadow:none;border-bottom:1px solid var(--line)}}
+
 /* Footer */
 footer{background:var(--blue-900);padding:40px 8vw;display:flex;align-items:center;justify-content:space-between;gap:20px}
 footer .f-logo{display:flex;align-items:center;gap:11px}
@@ -341,8 +371,8 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
   .trust-items{grid-template-columns:repeat(2,1fr)}
   .team{grid-template-columns:1fr 1fr}
   .member.wide{grid-column:1/-1}
-  .presences{right:22px;bottom:36px}
-  .city-thumb{left:22px;bottom:36px}
+  .presences{right:22px;bottom:150px}
+  .city-thumb{left:22px;bottom:150px}
   .corner{display:none}
   section{padding:78px 6vw}
   .partner-card{flex-direction:column;text-align:center;align-items:center}
@@ -414,6 +444,7 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
     <button data-slide="1" data-i18n="pr2">NOTRE ÉQUIPE</button>
     <button data-slide="2" data-i18n="pr3">NOTRE FLOTTE</button>
   </div>
+  <div class="hero-fade"></div>
   <span class="scroll-cue"></span>
 </section>
 
@@ -568,7 +599,7 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
   </div>
   <div class="stats reveal">
     <div class="stat"><h5 data-i18n="stat1t">Formats</h5><p class="val">A4 · A3</p><p data-i18n="stat1d">Papier bureautique premium adapté à tous les usages professionnels</p></div>
-    <div class="stat"><h5 data-i18n="stat2t">Zones de distribution</h5><p class="val">Dakar · Thiès · Saint-Louis</p><p data-i18n="stat2d">Présence et livraisons sur l'ensemble du territoire sénégalais</p></div>
+    <div class="stat"><h5 data-i18n="stat2t">Zones de distribution</h5><p class="val" data-i18n="stat2v">Partout au Sénégal</p><p data-i18n="stat2d">Présence et livraisons sur l'ensemble du territoire sénégalais</p></div>
     <div class="stat"><h5 data-i18n="stat3t">Compatibilité</h5><p class="val" data-i18n="stat3v">Copie · Laser · Jet d'encre</p><p data-i18n="stat3d">Performance optimale sur tous types d'imprimantes et photocopieurs</p></div>
   </div>
   <p class="chips-title reveal" data-i18n="chipsTitle">Nos marchés</p>
@@ -623,6 +654,31 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
       <div class="field"><label for="fMsg">Message</label><textarea id="fMsg" data-i18n-ph="fMsgP" placeholder="Décrivez votre demande ou votre commande..."></textarea></div>
       <button class="btn-gold" id="sendBtn" data-i18n="fSend">Envoyer</button>
       <p class="form-note" id="formNote" data-i18n="fNote">Votre application email va s'ouvrir avec votre message pré-rempli.</p>
+    </div>
+  </div>
+
+  <div class="map-block reveal">
+    <div class="map-head">
+      <div>
+        <h3 data-i18n="mapTitle">Nous trouver</h3>
+        <p data-i18n="mapSub">Hann Mariste, en face de Coris Banque — Dakar, Sénégal</p>
+      </div>
+      <div class="map-actions">
+        <a class="map-btn primary" href="https://www.google.com/maps/dir/?api=1&destination=14.740003,-17.425109" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M3 11l19-8-8 19-2-8z"/></svg><span data-i18n="mapItin">Itinéraire</span>
+        </a>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=14.740003,-17.425109" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><span data-i18n="mapOpen">Ouvrir dans Maps</span>
+        </a>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <div class="map-pin">
+        <p class="n">CAPITAL</p>
+        <p class="a" data-i18n-html="mapPin">Hann Mariste, en face de Coris Banque<br>Dakar, Sénégal</p>
+      </div>
+      <iframe title="Localisation CAPITAL — Hann Mariste, Dakar" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=14.740003,-17.425109&z=16&hl=fr&output=embed"></iframe>
     </div>
   </div>
 </section>
@@ -792,7 +848,7 @@ refEyebrow:{fr:'Références & marchés',en:'References & markets'},
 refBig:{fr:'Un engagement à la hauteur de <span style="color:var(--blue-600)">vos documents</span>',en:'A commitment worthy of <span style="color:var(--blue-600)">your documents</span>'},
 refDesc:{fr:'CAPITAL fournit des entreprises, des administrations et des institutions dans l\'approvisionnement régulier en papier premium, en garantissant qualité constante, fiabilité et excellence de service.',en:'CAPITAL supplies businesses, administrations and institutions with premium paper on a regular basis, guaranteeing consistent quality, reliability and service excellence.'},
 stat1t:{fr:'Formats',en:'Formats'},stat1d:{fr:'Papier bureautique premium adapté à tous les usages professionnels',en:'Premium office paper suited to every professional use'},
-stat2t:{fr:'Zones de distribution',en:'Distribution areas'},stat2d:{fr:'Présence et livraisons sur l\'ensemble du territoire sénégalais',en:'Presence and deliveries across all of Senegal'},
+stat2t:{fr:'Zone de distribution',en:'Distribution area'},stat2v:{fr:'Partout au Sénégal',en:'Nationwide in Senegal'},stat2d:{fr:'Livraisons assurées sur l\'ensemble du territoire national',en:'Deliveries guaranteed across the entire national territory'},
 stat3t:{fr:'Compatibilité',en:'Compatibility'},stat3v:{fr:'Copie · Laser · Jet d\'encre',en:'Copy · Laser · Inkjet'},
 stat3d:{fr:'Performance optimale sur tous types d\'imprimantes et photocopieurs',en:'Optimal performance on all printers and copiers'},
 chipsTitle:{fr:'Nos marchés',en:'Our markets'},
@@ -810,6 +866,10 @@ cTelT:{fr:'Téléphone',en:'Phone'},cHrT:{fr:'Horaires',en:'Opening hours'},
 cHr1:{fr:'Lundi à Vendredi — 08h30 à 18h00',en:'Monday to Friday — 8:30 am to 6:00 pm'},
 cHr2:{fr:'Samedi — 09h00 à 13h00',en:'Saturday — 9:00 am to 1:00 pm'},
 formTitle:{fr:'Envoyer un message',en:'Send a message'},
+mapTitle:{fr:'Nous trouver',en:'Find us'},
+mapSub:{fr:'Hann Mariste, en face de Coris Banque — Dakar, Sénégal',en:'Hann Mariste, opposite Coris Bank — Dakar, Senegal'},
+mapItin:{fr:'Itinéraire',en:'Directions'},mapOpen:{fr:'Ouvrir dans Maps',en:'Open in Maps'},
+mapPin:{fr:'Hann Mariste, en face de Coris Banque<br>Dakar, Sénégal',en:'Hann Mariste, opposite Coris Bank<br>Dakar, Senegal'},
 fName:{fr:'Nom & prénom',en:'Full name'},fNameP:{fr:'Votre nom complet',en:'Your full name'},
 fOrg:{fr:'Organisation',en:'Organization'},fOrgP:{fr:'Société / Institution',en:'Company / Institution'},
 fMsgP:{fr:'Décrivez votre demande ou votre commande...',en:'Describe your request or your order...'},
