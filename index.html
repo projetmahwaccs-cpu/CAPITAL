@@ -123,6 +123,7 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 
 /* ===== Sections ===== */
 section{padding:110px 8vw;position:relative}
+section>*{position:relative;z-index:2}
 .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--blue-600);font-weight:700;margin-bottom:10px}
 .eyebrow::after{content:"";display:block;width:52px;height:3px;background:var(--orange);margin-top:14px}
 .serif-lead{font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(1.55rem,2.7vw,2.15rem);line-height:1.45;color:var(--blue-900)}
@@ -335,6 +336,30 @@ section{padding:110px 8vw;position:relative}
 .map-pin .n{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--blue-900)}
 .map-pin .a{font-size:.76rem;color:var(--muted);margin-top:4px}
 @media(max-width:920px){.map-wrap{height:320px}.map-pin{position:static;max-width:none;margin-bottom:0;box-shadow:none;border-bottom:1px solid var(--line)}}
+
+/* ===== Fondus entre sections ===== */
+#apropos,#produit,#doctrine,#expertise,#management,#references,#contact{padding-bottom:190px}
+#apropos::after,#produit::after,#doctrine::after,#expertise::after,
+#management::after,#references::after,#contact::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:180px;pointer-events:none;z-index:1;
+}
+/* blanc -> bleu clair */
+#apropos::after,#expertise::after,#references::after{
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(244,248,253,.55) 55%,#f4f8fd 100%)}
+/* bleu clair -> blanc */
+#management::after{
+  background:linear-gradient(180deg,rgba(244,248,253,0) 0%,rgba(255,255,255,.55) 55%,#fff 100%)}
+/* bleu clair -> bleu profond */
+#produit::after,#contact::after{
+  background:linear-gradient(180deg,rgba(244,248,253,0) 0%,rgba(30,66,124,.5) 58%,#0d2a5f 100%)}
+/* bleu profond -> blanc */
+#doctrine::after{
+  background:linear-gradient(180deg,rgba(13,42,95,0) 0%,rgba(120,160,210,.45) 55%,#fff 100%)}
+@media(max-width:920px){
+  #apropos,#produit,#doctrine,#expertise,#management,#references,#contact{padding-bottom:130px}
+  #apropos::after,#produit::after,#doctrine::after,#expertise::after,
+  #management::after,#references::after,#contact::after{height:120px}
+}
 
 /* Footer */
 footer{background:var(--blue-900);padding:40px 8vw;display:flex;align-items:center;justify-content:space-between;gap:20px}
