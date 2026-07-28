@@ -260,12 +260,13 @@ section>*{position:relative;z-index:2}
 .logos-band::before,.logos-band::after{content:"";position:absolute;top:0;bottom:0;width:110px;z-index:2;pointer-events:none}
 .logos-band::before{left:0;background:linear-gradient(90deg,#f4f8fd,transparent)}
 .logos-band::after{right:0;background:linear-gradient(270deg,#f4f8fd,transparent)}
-.marquee{display:flex;width:max-content;animation:scrollX 28s linear infinite}
+.marquee{display:flex;width:max-content;animation:scrollX 58s linear infinite}
 .logos-band:hover .marquee{animation-play-state:paused}
 @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.m-item{flex:0 0 auto;margin:0 44px;display:flex;align-items:center;justify-content:center;min-width:150px;height:56px}
-.m-item img{max-height:52px;max-width:170px;filter:grayscale(1);opacity:.55;transition:.3s}
-.m-item img:hover{filter:none;opacity:1}
+.m-item{flex:0 0 auto;margin:0 40px;display:flex;align-items:center;justify-content:center;min-width:150px;height:64px;text-decoration:none;transition:.35s}
+.m-item[href]{cursor:pointer}
+.m-item img{max-height:60px;max-width:180px;filter:grayscale(1);opacity:.55;transition:.4s cubic-bezier(.16,1,.3,1)}
+.m-item:hover img{filter:none;opacity:1;transform:scale(1.09)}
 .m-item .txt-logo{font-family:var(--serif);font-size:1.3rem;font-weight:700;letter-spacing:.12em;color:var(--blue-200);white-space:nowrap;transition:.3s}
 .m-item:hover .txt-logo{color:var(--blue-600)}
 @media (prefers-reduced-motion:reduce){.marquee{animation:none;flex-wrap:wrap;width:100%;justify-content:center}}
@@ -458,6 +459,395 @@ section>*{position:relative;z-index:2}
   .shop-grid{grid-template-columns:1fr}
   .shop-info{grid-template-columns:1fr}
   .cart-fab{right:16px;bottom:16px;width:54px;height:54px}
+}
+
+/* ===== FICHE PRODUIT (modale) ===== */
+.card-media{cursor:pointer}
+.card-view{
+  position:absolute;inset:0;background:rgba(13,42,95,.55);display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:.3s;color:#fff;font-size:.68rem;letter-spacing:.2em;font-weight:700;text-transform:uppercase;gap:9px;
+}
+.card-view svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:1.8}
+.card-media:hover .card-view{opacity:1}
+
+.pdp-overlay{position:fixed;inset:0;background:rgba(9,26,60,.72);z-index:1600;opacity:0;visibility:hidden;transition:.3s;backdrop-filter:blur(3px)}
+.pdp-overlay.open{opacity:1;visibility:visible}
+.pdp{
+  position:fixed;inset:0;z-index:1700;display:flex;align-items:center;justify-content:center;padding:28px;
+  opacity:0;visibility:hidden;transition:.3s;pointer-events:none;
+}
+.pdp.open{opacity:1;visibility:visible;pointer-events:auto}
+.pdp-box{
+  background:#fff;width:min(1120px,100%);max-height:100%;overflow-y:auto;position:relative;
+  box-shadow:0 30px 80px rgba(9,26,60,.42);transform:translateY(20px);transition:transform .35s;
+}
+.pdp.open .pdp-box{transform:none}
+.pdp-close{
+  position:absolute;top:16px;right:16px;z-index:5;width:40px;height:40px;background:#fff;border:1px solid var(--line);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s;
+}
+.pdp-close:hover{background:var(--blue-900);border-color:var(--blue-900)}
+.pdp-close svg{width:19px;height:19px;stroke:var(--blue-900);fill:none;stroke-width:1.9;transition:.25s}
+.pdp-close:hover svg{stroke:#fff}
+.pdp-grid{display:grid;grid-template-columns:1fr 1fr}
+
+/* Galerie */
+.gal{background:var(--blue-50);padding:34px;border-right:1px solid var(--line)}
+.gal-main{background:#fff;border:1px solid var(--line);height:400px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.gal-main img{max-width:92%;max-height:92%;object-fit:contain;transition:opacity .3s}
+.gal-badge{position:absolute;top:14px;left:14px;background:var(--orange);color:#fff;font-size:.6rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;padding:6px 12px}
+.gal-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.gal-th{background:#fff;border:1.5px solid var(--line);height:78px;cursor:pointer;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:.25s;padding:5px}
+.gal-th img{max-width:100%;max-height:100%;object-fit:contain}
+.gal-th:hover{border-color:var(--blue-200)}
+.gal-th.on{border-color:var(--orange);border-width:2px}
+
+/* Colonne info */
+.pdp-info{padding:38px 40px 40px}
+.pdp-ref{font-size:.62rem;letter-spacing:.2em;color:var(--blue-600);font-weight:700;text-transform:uppercase}
+.pdp-info h2{font-family:var(--serif);font-size:clamp(1.7rem,2.6vw,2.2rem);font-weight:700;color:var(--blue-900);margin:6px 0 8px;line-height:1.2}
+.pdp-sub{font-size:.84rem;color:var(--muted)}
+.pdp-stock{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:.68rem;letter-spacing:.14em;font-weight:700;text-transform:uppercase;color:#1a9c54}
+.pdp-stock i{width:8px;height:8px;border-radius:50%;background:#1a9c54;display:block}
+.pdp-price{display:flex;align-items:baseline;gap:12px;margin:20px 0 4px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pdp-price .p{font-family:var(--serif);font-size:2.3rem;font-weight:700;color:var(--blue-800)}
+.pdp-price .cur{font-size:.76rem;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.pdp-price .old{font-size:.9rem;color:#9aabc4;text-decoration:line-through}
+.pdp-price .save{background:var(--orange);color:#fff;font-size:.62rem;letter-spacing:.1em;font-weight:700;text-transform:uppercase;padding:5px 10px}
+.pdp-desc{font-size:.88rem;color:var(--muted);margin:20px 0}
+.pdp-desc strong{color:var(--blue-900)}
+.pdp-h5{font-size:.66rem;letter-spacing:.24em;color:var(--blue-600);font-weight:700;text-transform:uppercase;margin:24px 0 12px}
+.pdp-bullets{list-style:none}
+.pdp-bullets li{font-size:.84rem;color:var(--muted);padding:6px 0 6px 26px;position:relative}
+.pdp-bullets li::before{content:"";position:absolute;left:0;top:12px;width:14px;height:8px;border-left:2px solid var(--orange);border-bottom:2px solid var(--orange);transform:rotate(-45deg)}
+.pdp-specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px}
+.pdp-specs div{background:#fff;padding:13px 16px}
+.pdp-specs .k{font-size:.62rem;letter-spacing:.16em;color:var(--muted);font-weight:700;text-transform:uppercase}
+.pdp-specs .v{font-size:.86rem;font-weight:700;color:var(--blue-900);margin-top:2px}
+.pdp-buy{display:flex;gap:12px;margin-top:26px}
+.pdp-buy .qty{flex:0 0 auto}
+.pdp-buy .add-btn{height:52px;font-size:.74rem}
+
+/* Paiements */
+.pay-box{margin-top:26px;border:1px solid var(--line);background:var(--blue-50);padding:20px 22px}
+.pay-box h5{font-size:.66rem;letter-spacing:.22em;color:var(--blue-700);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+.pay-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay-btn{
+  display:flex;align-items:center;gap:11px;padding:12px 14px;background:#fff;border:1.5px solid var(--line);
+  text-decoration:none;transition:.25s;cursor:pointer;font-family:var(--sans);
+}
+.pay-btn:hover{border-color:var(--blue-600);box-shadow:0 6px 18px rgba(18,35,71,.1);transform:translateY(-2px)}
+.pay-logo{flex:0 0 34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.62rem;color:#fff;letter-spacing:.02em}
+.pay-logo.wave{background:#1dc8f2}
+.pay-logo.om{background:#ff7900}
+.pay-logo.cash{background:var(--blue-700)}
+.pay-logo.bank{background:var(--blue-900)}
+.pay-btn .n{font-size:.78rem;font-weight:700;color:var(--blue-900);line-height:1.2}
+.pay-btn .d{font-size:.65rem;color:var(--muted)}
+.pay-hint{font-size:.68rem;color:var(--muted);margin-top:12px;line-height:1.5}
+.pdp-ship{display:flex;gap:12px;margin-top:20px;font-size:.76rem;color:var(--muted);align-items:flex-start}
+.pdp-ship svg{width:18px;height:18px;stroke:var(--blue-600);fill:none;stroke-width:1.6;flex:0 0 18px;margin-top:2px}
+
+@media(max-width:920px){
+  .pdp{padding:0}
+  .pdp-box{max-height:100vh}
+  .pdp-grid{grid-template-columns:1fr}
+  .gal{border-right:none;border-bottom:1px solid var(--line);padding:22px}
+  .gal-main{height:270px}
+  .pdp-info{padding:28px 22px 34px}
+  .pdp-specs{grid-template-columns:1fr}
+  .pay-list{grid-template-columns:1fr}
+}
+
+/* ===== WhatsApp flottant ===== */
+.wa-fab{
+  position:fixed;right:24px;bottom:96px;z-index:1200;width:60px;height:60px;border-radius:50%;
+  background:#25d366;box-shadow:0 10px 30px rgba(37,211,102,.45);display:flex;align-items:center;justify-content:center;
+  text-decoration:none;transition:.3s;
+}
+.wa-fab:hover{background:#1fb856;transform:scale(1.06)}
+.wa-fab svg{width:30px;height:30px;fill:#fff}
+.wa-fab::before{
+  content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;
+  animation:waPulse 2.4s ease-out infinite;
+}
+@keyframes waPulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.5);opacity:0}100%{opacity:0}}
+.wa-tip{
+  position:absolute;right:74px;top:50%;transform:translateY(-50%) translateX(8px);white-space:nowrap;
+  background:var(--blue-900);color:#fff;font-size:.7rem;font-weight:600;padding:9px 14px;
+  opacity:0;pointer-events:none;transition:.25s;
+}
+.wa-fab:hover .wa-tip{opacity:1;transform:translateY(-50%) translateX(0)}
+@media (prefers-reduced-motion:reduce){.wa-fab::before{animation:none}}
+@media(max-width:920px){.wa-fab{right:16px;bottom:82px;width:54px;height:54px}.wa-fab svg{width:27px;height:27px}.wa-tip{display:none}}
+
+/* ===== PAGE COMMANDE (plein écran) ===== */
+.co{
+  position:fixed;inset:0;z-index:1800;background:var(--blue-50);overflow-y:auto;
+  opacity:0;visibility:hidden;transform:translateY(24px);transition:.4s cubic-bezier(.4,0,.2,1);
+}
+.co.open{opacity:1;visibility:visible;transform:none}
+.co-bar{
+  position:sticky;top:0;z-index:10;background:var(--blue-900);padding:16px 5vw;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.co-bar .brand{display:flex;align-items:center;gap:11px}
+.co-bar .brand img{width:40px;height:40px;border-radius:50%}
+.co-bar .brand .n{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:#fff;letter-spacing:.12em}
+.co-bar .brand .s{font-size:.54rem;letter-spacing:.34em;color:var(--orange);font-weight:700}
+.co-back{background:none;border:1px solid rgba(255,255,255,.35);color:#fff;cursor:pointer;padding:9px 16px;font-family:var(--sans);font-size:.66rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;display:flex;align-items:center;gap:8px;transition:.25s}
+.co-back:hover{background:#fff;color:var(--blue-900);border-color:#fff}
+.co-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.co-wrap{max-width:1180px;margin:0 auto;padding:44px 5vw 80px}
+.co-title{font-family:var(--serif);font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:var(--blue-900)}
+.co-steps{display:flex;gap:8px;margin:16px 0 36px;flex-wrap:wrap}
+.co-step{display:flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:.14em;font-weight:700;text-transform:uppercase;color:var(--muted)}
+.co-step i{width:22px;height:22px;border-radius:50%;background:var(--blue-600);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-style:normal}
+.co-step+.co-step::before{content:"";width:26px;height:1px;background:var(--line);margin-right:9px}
+.co-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:34px;align-items:start}
+.co-card{background:#fff;border:1px solid var(--line);padding:30px 32px;margin-bottom:22px}
+.co-card>h3{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--blue-900);margin-bottom:6px}
+.co-card>.hint{font-size:.78rem;color:var(--muted);margin-bottom:20px}
+.co-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.co-fields .full{grid-column:1/-1}
+.co-lbl{display:block;font-size:.62rem;letter-spacing:.18em;color:var(--blue-700);font-weight:700;text-transform:uppercase;margin-bottom:7px}
+.co-in{width:100%;background:var(--blue-50);border:1px solid var(--line);color:var(--ink);font-family:var(--sans);font-size:.87rem;padding:12px 14px;outline:none;transition:.25s;resize:vertical}
+.co-in:focus{border-color:var(--blue-600);background:#fff;box-shadow:0 0 0 3px var(--orange-soft)}
+.co-in.err{border-color:#d9534f;background:#fff5f5}
+select.co-in{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232563ac' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:12px}
+/* options radio */
+.opt{display:flex;gap:13px;align-items:flex-start;border:1.5px solid var(--line);background:#fff;padding:15px 17px;cursor:pointer;transition:.25s;margin-bottom:10px}
+.opt:hover{border-color:var(--blue-200)}
+.opt.on{border-color:var(--blue-600);background:var(--blue-50);box-shadow:0 4px 16px rgba(37,99,172,.12)}
+.opt .dot{flex:0 0 18px;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);margin-top:2px;position:relative;transition:.25s}
+.opt.on .dot{border-color:var(--blue-600)}
+.opt.on .dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--blue-600)}
+.opt .lg{flex:0 0 38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.6rem;color:#fff}
+.opt .t{font-size:.86rem;font-weight:700;color:var(--blue-900)}
+.opt .d{font-size:.72rem;color:var(--muted);margin-top:2px}
+.opt .tag{margin-left:auto;font-size:.62rem;letter-spacing:.1em;font-weight:700;text-transform:uppercase;color:var(--orange);white-space:nowrap}
+/* récap */
+.co-sum{position:sticky;top:92px}
+.sum-items{margin-bottom:16px}
+.sum-i{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.sum-i .im{flex:0 0 54px;height:54px;background:var(--blue-50);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sum-i .im img{max-width:86%;max-height:86%;object-fit:contain}
+.sum-i .tx{flex:1;min-width:0}
+.sum-i .tx h4{font-family:var(--serif);font-size:.95rem;font-weight:700;color:var(--blue-900);line-height:1.2}
+.sum-i .tx p{font-size:.7rem;color:var(--muted);margin-top:2px}
+.sum-i .pr{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--blue-800);white-space:nowrap}
+.sum-line{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);padding:5px 0}
+.sum-tot{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px;margin-top:8px;border-top:2px solid var(--blue-900)}
+.sum-tot .l{font-size:.72rem;letter-spacing:.2em;font-weight:700;text-transform:uppercase;color:var(--blue-900)}
+.sum-tot .v{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--blue-800)}
+.co-submit{width:100%;background:var(--orange);border:none;cursor:pointer;color:#fff;font-family:var(--sans);font-size:.76rem;letter-spacing:.2em;font-weight:700;text-transform:uppercase;padding:18px;margin-top:20px;transition:.3s;display:flex;align-items:center;justify-content:center;gap:10px}
+.co-submit:hover{background:#d97f11;box-shadow:0 10px 28px rgba(240,146,30,.4);transform:translateY(-2px)}
+.co-submit svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}
+.co-trust{display:flex;gap:9px;align-items:flex-start;font-size:.7rem;color:var(--muted);margin-top:14px;line-height:1.5}
+.co-trust svg{width:15px;height:15px;stroke:#1a9c54;fill:none;stroke-width:1.8;flex:0 0 15px;margin-top:2px}
+.chk{display:flex;gap:11px;align-items:flex-start;margin-top:16px;cursor:pointer;font-size:.75rem;color:var(--muted);line-height:1.5}
+.chk input{appearance:none;flex:0 0 18px;width:18px;height:18px;border:2px solid var(--line);cursor:pointer;transition:.2s;margin-top:1px;position:relative}
+.chk input:checked{background:var(--blue-600);border-color:var(--blue-600)}
+.chk input:checked::after{content:"";position:absolute;left:4px;top:0;width:5px;height:10px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg)}
+.chk a{color:var(--blue-600);font-weight:600}
+
+/* Confidentialité */
+.legal{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue-600);padding:34px 36px;margin-top:34px}
+.legal h3{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--blue-900);margin-bottom:6px}
+.legal .up{font-size:.66rem;letter-spacing:.18em;color:var(--muted);font-weight:600;margin-bottom:22px}
+.legal h4{font-size:.72rem;letter-spacing:.16em;color:var(--blue-600);font-weight:700;text-transform:uppercase;margin:24px 0 9px}
+.legal p{font-size:.82rem;color:var(--muted);margin-bottom:10px;line-height:1.75}
+.legal ul{list-style:none;margin:6px 0 10px}
+.legal li{font-size:.82rem;color:var(--muted);padding:4px 0 4px 18px;position:relative;line-height:1.7}
+.legal li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:2px;background:var(--orange)}
+.legal strong{color:var(--blue-900)}
+.legal-cols{columns:2;column-gap:40px}
+.legal-cols>*{break-inside:avoid}
+
+/* Confirmation */
+.co-done{text-align:center;padding:70px 20px;display:none}
+.co-done.show{display:block}
+.co-done .ic{width:82px;height:82px;border-radius:50%;background:#1a9c54;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+.co-done .ic svg{width:38px;height:38px;stroke:#fff;fill:none;stroke-width:2.6}
+@keyframes pop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+.co-done h2{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--blue-900);margin-bottom:10px}
+.co-done p{font-size:.9rem;color:var(--muted);max-width:520px;margin:0 auto 26px}
+.co-done .refbox{display:inline-block;background:#fff;border:1px dashed var(--blue-600);padding:14px 26px;font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--blue-800);letter-spacing:.08em}
+
+@media(max-width:920px){
+  .co-grid{grid-template-columns:1fr;gap:24px}
+  .co-sum{position:static}
+  .co-card{padding:24px 20px}
+  .co-fields{grid-template-columns:1fr}
+  .legal{padding:26px 22px}
+  .legal-cols{columns:1}
+  .co-bar{padding:12px 5vw}
+  .co-bar .brand .n{font-size:1.05rem}
+}
+
+/* ===== MOUVEMENT ===== */
+.reveal-up{opacity:0;transform:translateY(46px);transition:opacity .95s cubic-bezier(.16,1,.3,1),transform .95s cubic-bezier(.16,1,.3,1)}
+.reveal-left{opacity:0;transform:translateX(-46px);transition:opacity .95s cubic-bezier(.16,1,.3,1),transform .95s cubic-bezier(.16,1,.3,1)}
+.reveal-right{opacity:0;transform:translateX(46px);transition:opacity .95s cubic-bezier(.16,1,.3,1),transform .95s cubic-bezier(.16,1,.3,1)}
+.reveal-zoom{opacity:0;transform:scale(.92);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+.reveal-up.vis,.reveal-left.vis,.reveal-right.vis,.reveal-zoom.vis{opacity:1;transform:none}
+
+/* Titres qui se dévoilent mot à mot */
+.word{display:inline-block;opacity:0;transform:translateY(24px) rotate(2deg);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.word.vis{opacity:1;transform:none}
+
+/* Parallaxe douce */
+[data-para]{will-change:transform}
+
+/* Compteurs */
+.count-up{font-variant-numeric:tabular-nums}
+
+/* Ligne qui se trace */
+.eyebrow::after{transform-origin:left;transform:scaleX(0);transition:transform .8s cubic-bezier(.16,1,.3,1) .2s}
+.eyebrow.vis::after{transform:scaleX(1)}
+
+/* Effets de survol renforcés */
+.pole,.card,.member,.exp-card,.stat,.chip,.opt{will-change:transform}
+.card-media img{transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.card:hover .card-media img{transform:scale(1.07) rotate(-1.5deg)}
+.stat{transition:transform .35s,box-shadow .35s,border-color .35s}
+.stat:hover{transform:translateY(-6px);box-shadow:0 16px 38px rgba(18,35,71,.12);border-bottom-color:var(--orange)}
+.chip{transition:transform .3s,background .3s,color .3s,border-color .3s}
+.chip:hover{transform:translateY(-3px)}
+.c-item .ic{transition:transform .35s,background .35s}
+.c-item:hover .ic{transform:rotate(-6deg) scale(1.08);background:var(--orange)}
+.doc-item{transition:padding-left .45s cubic-bezier(.16,1,.3,1)}
+.doc-item:hover{padding-left:22px}
+.doc-item .num{transition:color .35s,transform .45s cubic-bezier(.16,1,.3,1)}
+.doc-item:hover .num{color:#fff;transform:scale(1.12)}
+.trust-items .t{transition:transform .35s}
+.trust-items .t:hover{transform:translateY(-6px)}
+.trust-items svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.trust-items .t:hover svg{transform:rotate(-8deg) scale(1.15)}
+.exp-row{transition:padding-left .4s cubic-bezier(.16,1,.3,1),background .3s}
+.exp-row:hover{padding-left:14px;background:var(--blue-50)}
+.exp-row .num{transition:color .35s}
+.exp-row:hover .num{color:var(--orange)}
+.pole .num{transition:color .35s,transform .4s}
+.pole:hover .num{color:var(--orange);transform:scale(1.1)}
+
+/* Barre de progression circulaire du hero */
+.hero-inner>*{animation:heroIn 1.1s cubic-bezier(.16,1,.3,1) backwards}
+.hero-inner>*:nth-child(1){animation-delay:.15s}
+.hero-inner>*:nth-child(2){animation-delay:.3s}
+.hero-inner>*:nth-child(3){animation-delay:.42s}
+.hero-inner>*:nth-child(4){animation-delay:.5s}
+.hero-inner>*:nth-child(5){animation-delay:.6s}
+.hero-inner>*:nth-child(6){animation-delay:.7s}
+.hero-inner>*:nth-child(7){animation-delay:.8s}
+@keyframes heroIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.presences,.city-thumb{animation:heroIn 1.1s cubic-bezier(.16,1,.3,1) .95s backwards}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal-up,.reveal-left,.reveal-right,.reveal-zoom,.word{opacity:1;transform:none;transition:none}
+  .eyebrow::after{transform:scaleX(1)}
+  .hero-inner>*,.presences,.city-thumb{animation:none}
+  [data-para]{transform:none!important}
+}
+
+/* ===== FINITIONS RESPONSIVE ===== */
+img,svg,video{max-width:100%}
+input,select,textarea,button{font-size:16px}
+@media(min-width:561px){.co-in,.field input,.field textarea,.qty input{font-size:.87rem}}
+.qty input,#q-pdp{font-size:16px}
+
+/* Tablette */
+@media(max-width:1180px){
+  section{padding:96px 6vw}
+  nav a{padding:9px 9px;font-size:.68rem;letter-spacing:.1em}
+  .logo-text .name{font-size:1.25rem}
+  .apropos-grid,.exp-grid{gap:48px}
+}
+@media(max-width:1024px){
+  header{padding:11px 24px}
+  .corner{display:none}
+  .presences{right:26px}
+  .city-thumb{left:26px}
+}
+
+/* Mobile large */
+@media(max-width:640px){
+  section{padding:64px 5vw}
+  #apropos,#produit,#boutique,#doctrine,#expertise,#management,#references,#contact{padding-bottom:110px}
+  .hero-inner{padding:104px 16px 130px}
+  .hero-logo{width:min(150px,42vw);margin-bottom:20px}
+  .hero-name{font-size:2.4rem;letter-spacing:.1em}
+  .hero-eyebrow{letter-spacing:.3em;font-size:.6rem;margin-bottom:22px}
+  .hero-title{font-size:1.45rem}
+  .hero-sub{font-size:.64rem;letter-spacing:.16em}
+  .hero-sep{margin:22px auto}
+  .presences{bottom:120px;right:14px}
+  .presences button{font-size:.64rem;letter-spacing:.14em;gap:8px}
+  .presences h4{font-size:.58rem;letter-spacing:.18em}
+  .doc-item{flex-direction:column;gap:6px;padding:26px 0}
+  .doc-item .num{flex:none;font-size:1.7rem}
+  .doc-item p{font-size:1.25rem}
+  .doc-item:hover{padding-left:0}
+  .exp-card ul{columns:1}
+  .card-price .p{font-size:1.6rem}
+  .card-actions{flex-wrap:wrap}
+  .add-btn{min-width:150px}
+  .map-head{flex-direction:column;align-items:flex-start}
+  .map-actions{width:100%}
+  .map-btn{flex:1;justify-content:center}
+  .shop-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .shop-note{width:100%}
+  .part-label{gap:12px;font-size:.62rem;letter-spacing:.18em}
+  .stat .val{font-size:1.35rem}
+  .trust-items{gap:20px}
+  .chip{font-size:.64rem;padding:9px 15px;letter-spacing:.1em}
+  .logos-band::before,.logos-band::after{width:50px}
+  .m-item{margin:0 24px;min-width:110px}
+  .cart-panel{width:100%}
+  .cart-body,.cart-foot,.cart-top{padding-left:18px;padding-right:18px}
+  .pdp-info h2{font-size:1.5rem}
+  .pdp-price .p{font-size:1.8rem}
+  .gal-thumbs{grid-template-columns:repeat(4,1fr);gap:7px}
+  .gal-th{height:60px}
+  .co-wrap{padding:28px 4vw 60px}
+  .co-title{font-size:1.7rem}
+  .co-steps{gap:5px}
+  .co-step{font-size:.58rem;letter-spacing:.08em}
+  .co-step+.co-step::before{width:14px;margin-right:5px}
+  .sum-tot .v{font-size:1.55rem}
+  .co-back span{display:none}
+  .co-back{padding:9px 12px}
+  footer{padding:32px 5vw;gap:16px}
+  footer .f-motto{letter-spacing:.28em;font-size:.58rem}
+}
+
+/* Très petits écrans */
+@media(max-width:380px){
+  .hero-name{font-size:2rem}
+  .hero-title{font-size:1.25rem}
+  .logo-text .name{font-size:1rem}
+  .logo-mark{width:38px;height:38px;flex-basis:38px}
+  .presences button{font-size:.58rem}
+  .card-body,.exp-card{padding:22px 18px}
+  .form-card,.co-card{padding:22px 16px}
+  .cart-fab,.wa-fab{width:50px;height:50px}
+  .wa-fab{bottom:74px}
+  .trust-items{grid-template-columns:1fr}
+}
+
+/* Écrans bas (paysage mobile) */
+@media(max-height:560px) and (max-width:920px){
+  #accueil{min-height:auto;padding:90px 0 60px}
+  .presences,.city-thumb{position:static;margin:22px auto 0;text-align:center}
+  .presences button{margin:0 auto}
+  .hero-fade{display:none}
+}
+
+/* Zones tactiles */
+@media(hover:none){
+  .card-view{opacity:1;background:rgba(13,42,95,.28)}
+  .wa-tip{display:none}
+  .qty button,.ci-qty button{min-width:40px}
 }
 
 /* ===== Fondus entre sections ===== */
@@ -666,9 +1056,10 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
   <div class="shop-grid">
     <!-- Ramette -->
     <article class="card reveal">
-      <div class="card-media">
+      <div class="card-media" data-view="ramette">
         <span class="card-flag" data-i18n="flagUnit">À l'unité</span>
-        <img src="assets/ramette.jpg" alt="Ramette CAPITAL Premium A4 80g">
+        <img src="assets/produits/ramette-1.jpg" alt="Ramette CAPITAL Premium A4 80g">
+        <div class="card-view"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M11 8v6M8 11h6"/></svg><span data-i18n="viewProd">Voir le produit</span></div>
       </div>
       <div class="card-body">
         <p class="ref">CAP-A4-80</p>
@@ -699,10 +1090,11 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
 
     <!-- Carton -->
     <article class="card reveal d1">
-      <div class="card-media">
+      <div class="card-media" data-view="carton">
         <span class="card-flag" data-i18n="flagBest">Le plus avantageux</span>
-        <img src="assets/ramette.jpg" alt="Carton de 5 ramettes CAPITAL Premium A4">
+        <img src="assets/produits/carton-1.jpg" alt="Carton de 5 ramettes CAPITAL Premium A4">
         <span class="card-mult">×5</span>
+        <div class="card-view"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M11 8v6M8 11h6"/></svg><span data-i18n="viewProd2">Voir le produit</span></div>
       </div>
       <div class="card-body">
         <p class="ref">CAP-A4-80-C5</p>
@@ -868,12 +1260,19 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
   <div class="logos-band reveal">
     <h5 data-i18n="logosTitle">Ils nous font confiance</h5>
     <div class="marquee" id="marquee">
-      <div class="m-item"><img src="assets/partners/logo1.png" alt="Partenaire 1" onerror="this.outerHTML='&lt;span class=txt-logo&gt;PARTENAIRE&amp;nbsp;1&lt;/span&gt;'"></div>
-      <div class="m-item"><img src="assets/partners/logo2.png" alt="Partenaire 2" onerror="this.outerHTML='&lt;span class=txt-logo&gt;PARTENAIRE&amp;nbsp;2&lt;/span&gt;'"></div>
-      <div class="m-item"><img src="assets/partners/logo3.png" alt="Partenaire 3" onerror="this.outerHTML='&lt;span class=txt-logo&gt;PARTENAIRE&amp;nbsp;3&lt;/span&gt;'"></div>
-      <div class="m-item"><img src="assets/partners/logo4.png" alt="Partenaire 4" onerror="this.outerHTML='&lt;span class=txt-logo&gt;PARTENAIRE&amp;nbsp;4&lt;/span&gt;'"></div>
-      <div class="m-item"><img src="assets/partners/logo5.png" alt="Partenaire 5" onerror="this.outerHTML='&lt;span class=txt-logo&gt;PARTENAIRE&amp;nbsp;5&lt;/span&gt;'"></div>
-      <div class="m-item"><img src="assets/partners/logo6.png" alt="Partenaire 6" onerror="this.outerHTML='&lt;span class=txt-logo&gt;PARTENAIRE&amp;nbsp;6&lt;/span&gt;'"></div>
+      <div class="m-item" title="Comptoir Commercial Sourang (CCS)"><img src="assets/partners/ccs.png" alt="Comptoir Commercial Sourang (CCS)" loading="lazy"></div>
+      <div class="m-item" title="Mahwa Trading SARL (MTS)"><img src="assets/partners/mts.png" alt="Mahwa Trading SARL (MTS)" loading="lazy"></div>
+      <a class="m-item" href="https://www.ekremagro.com.tr/" target="_blank" rel="noopener" title="Ekrem Agro"><img src="assets/partners/ekrem-agro.png" alt="Ekrem Agro" loading="lazy"></a>
+      <a class="m-item" href="https://www.instagram.com/copa.cafe" target="_blank" rel="noopener" title="Copa Café"><img src="assets/partners/copa-cafe.png" alt="Copa Café" loading="lazy"></a>
+      <a class="m-item" href="https://agrospice.com.br/" target="_blank" rel="noopener" title="Agrospice Brasil"><img src="assets/partners/agrospice.png" alt="Agrospice Brasil" loading="lazy"></a>
+      <a class="m-item" href="https://koreagro.com/" target="_blank" rel="noopener" title="Kore International"><img src="assets/partners/kore.png" alt="Kore International" loading="lazy"></a>
+      <a class="m-item" href="https://hanfimex.com/" target="_blank" rel="noopener" title="Hanfimex Group"><img src="assets/partners/hanfimex.png" alt="Hanfimex Group" loading="lazy"></a>
+      <a class="m-item" href="https://www.ekn.se/en/" target="_blank" rel="noopener" title="EKN"><img src="assets/partners/ekn.png" alt="EKN" loading="lazy"></a>
+      <a class="m-item" href="https://timbrotrading.com/" target="_blank" rel="noopener" title="Timbro Trading"><img src="assets/partners/timbro.png" alt="Timbro Trading" loading="lazy"></a>
+      <a class="m-item" href="https://cndivision.com/" target="_blank" rel="noopener" title="Central National"><img src="assets/partners/central-national.png" alt="Central National" loading="lazy"></a>
+      <a class="m-item" href="https://www.grancafe.com.br/" target="_blank" rel="noopener" title="Grancafé"><img src="assets/partners/grancafe.png" alt="Grancafé" loading="lazy"></a>
+      <a class="m-item" href="https://www.troisconti.com" target="_blank" rel="noopener" title="Trois Continental Sdn. Bhd."><img src="assets/partners/trois-continental.png" alt="Trois Continental Sdn. Bhd." loading="lazy"></a>
+      <a class="m-item" href="https://alicampo.com/" target="_blank" rel="noopener" title="Alicampo"><img src="assets/partners/alicampo.png" alt="Alicampo" loading="lazy"></a>
     </div>
   </div>
   <div class="trust-band reveal">
@@ -974,14 +1373,14 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
       <span class="v" id="cartTotal">0 FCFA</span>
     </div>
     <div class="cart-cta">
+      <button class="co-submit" id="goCheckout" style="margin-top:0">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span data-i18n="goCheckout">Passer commande</span>
+      </button>
       <a class="wa-btn" id="waOrder" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.2-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
         <span data-i18n="orderWa">Commander sur WhatsApp</span>
       </a>
-      <button class="mail-btn" id="mailOrder">
-        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
-        <span data-i18n="orderMail">Commander par email</span>
-      </button>
     </div>
     <p class="cart-legal" data-i18n="cartLegal">Votre commande sera confirmée par téléphone. Paiement à la livraison.</p>
   </div>
@@ -990,6 +1389,275 @@ footer .f-motto{font-size:.66rem;letter-spacing:.44em;color:var(--orange);font-w
 <div class="toast" id="toast">
   <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
   <span id="toastMsg"></span>
+</div>
+
+<!-- ================= FICHE PRODUIT ================= -->
+<div class="pdp-overlay" id="pdpOverlay"></div>
+<div class="pdp" id="pdp" role="dialog" aria-modal="true">
+  <div class="pdp-box">
+    <button class="pdp-close" id="pdpClose" aria-label="Fermer">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="pdp-grid">
+      <div class="gal">
+        <div class="gal-main">
+          <span class="gal-badge" id="pdpBadge"></span>
+          <img id="galMain" src="" alt="">
+        </div>
+        <div class="gal-thumbs" id="galThumbs"></div>
+      </div>
+      <div class="pdp-info">
+        <p class="pdp-ref" id="pdpRef"></p>
+        <h2 id="pdpName"></h2>
+        <p class="pdp-sub" id="pdpSub"></p>
+        <p class="pdp-stock"><i></i><span data-i18n="inStock">En stock — expédition sous 24 h</span></p>
+
+        <div class="pdp-price">
+          <span class="p" id="pdpPrice"></span><span class="cur">FCFA</span>
+          <span class="old" id="pdpOld"></span><span class="save" id="pdpSave"></span>
+        </div>
+
+        <p class="pdp-desc" id="pdpDesc"></p>
+
+        <p class="pdp-h5" data-i18n="pdpWhy">Pourquoi CAPITAL</p>
+        <ul class="pdp-bullets" id="pdpBullets"></ul>
+
+        <p class="pdp-h5" data-i18n="pdpSpecs">Caractéristiques</p>
+        <div class="pdp-specs" id="pdpSpecs"></div>
+
+        <div class="pdp-buy">
+          <div class="qty">
+            <button type="button" id="pdpMinus" aria-label="Moins">−</button>
+            <input type="number" id="q-pdp" value="1" min="1" max="999" aria-label="Quantité">
+            <button type="button" id="pdpPlus" aria-label="Plus">+</button>
+          </div>
+          <button class="add-btn" id="pdpAdd">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+            <span data-i18n="addCart3">Ajouter au panier</span>
+          </button>
+        </div>
+
+        <div class="pay-box">
+          <h5 data-i18n="payTitle">Moyens de paiement</h5>
+          <div class="pay-list">
+            <!-- LIENS À REMPLACER PAR LES VRAIS LIENS MARCHANDS -->
+            <a class="pay-btn" id="payWave" href="https://pay.wave.com/m/CAPITAL-SN-0000/c/sn/" target="_blank" rel="noopener">
+              <span class="pay-logo wave">Wave</span>
+              <span><span class="n">Wave</span><span class="d" data-i18n="payWaveD">Paiement instantané</span></span>
+            </a>
+            <a class="pay-btn" id="payOM" href="https://qrcode.orange-money.sn/CAPITAL-SN-0000" target="_blank" rel="noopener">
+              <span class="pay-logo om">OM</span>
+              <span><span class="n">Orange Money</span><span class="d" data-i18n="payOmD">Paiement mobile</span></span>
+            </a>
+            <div class="pay-btn">
+              <span class="pay-logo cash">CASH</span>
+              <span><span class="n" data-i18n="payCash">Espèces</span><span class="d" data-i18n="payCashD">À la livraison</span></span>
+            </div>
+            <div class="pay-btn">
+              <span class="pay-logo bank">VIR</span>
+              <span><span class="n" data-i18n="payBank">Virement</span><span class="d" data-i18n="payBankD">Pour les entreprises</span></span>
+            </div>
+          </div>
+          <p class="pay-hint" data-i18n="payHint">Réglez en ligne via Wave ou Orange Money, ou payez à la réception de votre commande.</p>
+        </div>
+
+        <div class="pdp-ship">
+          <svg viewBox="0 0 24 24"><rect x="1" y="6" width="14" height="11"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+          <span data-i18n="pdpShip">Livraison partout au Sénégal — Dakar en 24 h, régions sous 48 à 72 h. Livraison offerte dès 10 cartons.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= WHATSAPP FLOTTANT ================= -->
+<a class="wa-fab" href="https://wa.me/221776990000?text=Bonjour%20CAPITAL%2C%20je%20souhaite%20des%20informations%20sur%20vos%20produits." target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+  <span class="wa-tip" data-i18n="waTip">Discutons sur WhatsApp</span>
+</a>
+
+<!-- ================= PAGE COMMANDE ================= -->
+<div class="co" id="checkout">
+  <div class="co-bar">
+    <div class="brand">
+      <img src="assets/logo-badge.jpg" alt="">
+      <div><p class="n">CAPITAL</p><p class="s" data-i18n="coBrandS">COMMANDE SÉCURISÉE</p></div>
+    </div>
+    <button class="co-back" id="coBack">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span data-i18n="coBack">Retour à la boutique</span>
+    </button>
+  </div>
+
+  <div class="co-wrap">
+    <!-- Formulaire -->
+    <div id="coForm">
+      <h1 class="co-title" data-i18n="coTitle">Finaliser ma commande</h1>
+      <div class="co-steps">
+        <span class="co-step"><i>1</i><span data-i18n="coS1">Coordonnées</span></span>
+        <span class="co-step"><i>2</i><span data-i18n="coS2">Livraison</span></span>
+        <span class="co-step"><i>3</i><span data-i18n="coS3">Paiement</span></span>
+      </div>
+
+      <div class="co-grid">
+        <div>
+          <!-- Coordonnées -->
+          <div class="co-card">
+            <h3 data-i18n="coC1">Vos coordonnées</h3>
+            <p class="hint" data-i18n="coC1h">Nous en avons besoin pour vous livrer et confirmer la commande.</p>
+            <div class="co-fields">
+              <div><label class="co-lbl" for="coName" data-i18n="coName">Nom &amp; prénom *</label><input class="co-in" id="coName" type="text" data-i18n-ph="coNameP" placeholder="Votre nom complet"></div>
+              <div><label class="co-lbl" for="coTel" data-i18n="coTel">Téléphone *</label><input class="co-in" id="coTel" type="tel" placeholder="77 000 00 00"></div>
+              <div><label class="co-lbl" for="coMail">Email</label><input class="co-in" id="coMail" type="email" placeholder="votre@email.com"></div>
+              <div><label class="co-lbl" for="coOrg" data-i18n="coOrg">Société / Institution</label><input class="co-in" id="coOrg" type="text" data-i18n-ph="coOrgP" placeholder="Facultatif"></div>
+            </div>
+          </div>
+
+          <!-- Livraison -->
+          <div class="co-card">
+            <h3 data-i18n="coC2">Adresse de livraison</h3>
+            <p class="hint" data-i18n="coC2h">Nous livrons partout au Sénégal.</p>
+            <div class="co-fields">
+              <div class="full"><label class="co-lbl" for="coAddr" data-i18n="coAddr">Adresse *</label><input class="co-in" id="coAddr" type="text" data-i18n-ph="coAddrP" placeholder="Quartier, rue, repère..."></div>
+              <div><label class="co-lbl" for="coCity" data-i18n="coCity">Ville *</label>
+                <select class="co-in" id="coCity">
+                  <option>Dakar</option><option>Pikine</option><option>Guédiawaye</option><option>Rufisque</option>
+                  <option>Thiès</option><option>Mbour</option><option>Saint-Louis</option><option>Kaolack</option>
+                  <option>Ziguinchor</option><option>Touba</option><option>Diourbel</option><option>Louga</option>
+                  <option>Tambacounda</option><option>Kolda</option><option>Fatick</option><option>Matam</option>
+                  <option data-i18n="coOther">Autre</option>
+                </select>
+              </div>
+              <div><label class="co-lbl" for="coWhen" data-i18n="coWhen">Créneau souhaité</label>
+                <select class="co-in" id="coWhen">
+                  <option data-i18n="coW1">Dès que possible</option>
+                  <option data-i18n="coW2">Matin (8h – 12h)</option>
+                  <option data-i18n="coW3">Après-midi (14h – 18h)</option>
+                </select>
+              </div>
+              <div class="full"><label class="co-lbl" for="coNote" data-i18n="coNote">Précisions</label><textarea class="co-in" id="coNote" rows="3" data-i18n-ph="coNoteP" placeholder="Étage, personne à contacter, instructions particulières..."></textarea></div>
+            </div>
+          </div>
+
+          <!-- Paiement -->
+          <div class="co-card">
+            <h3 data-i18n="coC3">Moyen de paiement</h3>
+            <p class="hint" data-i18n="coC3h">Choisissez comment vous souhaitez régler votre commande.</p>
+            <!-- LIENS MARCHANDS À REMPLACER -->
+            <label class="opt on" data-pay="wave" data-link="https://pay.wave.com/m/CAPITAL-SN-0000/c/sn/">
+              <span class="dot"></span><span class="lg" style="background:#1dc8f2">Wave</span>
+              <span><span class="t">Wave</span><span class="d" data-i18n="pwD">Paiement instantané, sans frais</span></span>
+              <span class="tag" data-i18n="pwT">Recommandé</span>
+            </label>
+            <label class="opt" data-pay="om" data-link="https://qrcode.orange-money.sn/CAPITAL-SN-0000">
+              <span class="dot"></span><span class="lg" style="background:#ff7900">OM</span>
+              <span><span class="t">Orange Money</span><span class="d" data-i18n="poD">Paiement mobile sécurisé</span></span>
+            </label>
+            <label class="opt" data-pay="cash" data-link="">
+              <span class="dot"></span><span class="lg" style="background:#1a4a94">CASH</span>
+              <span><span class="t" data-i18n="pcT">Espèces à la livraison</span><span class="d" data-i18n="pcD">Vous payez au livreur</span></span>
+            </label>
+            <label class="opt" data-pay="bank" data-link="">
+              <span class="dot"></span><span class="lg" style="background:#0d2a5f">VIR</span>
+              <span><span class="t" data-i18n="pbT">Virement bancaire</span><span class="d" data-i18n="pbD">Coordonnées envoyées après validation</span></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Récapitulatif -->
+        <div class="co-sum">
+          <div class="co-card">
+            <h3 data-i18n="coSum">Votre commande</h3>
+            <div class="sum-items" id="sumItems"></div>
+            <div class="sum-line"><span data-i18n="coSub">Sous-total</span><span id="sumSub">0</span></div>
+            <div class="sum-line"><span data-i18n="coDeliv">Livraison</span><span id="sumDeliv" data-i18n="coDelivV">À confirmer</span></div>
+            <div class="sum-tot"><span class="l" data-i18n="coTotal">Total</span><span class="v" id="sumTotal">0</span></div>
+
+            <label class="chk"><input type="checkbox" id="coAgree">
+              <span data-i18n-html="coAgreeT">J'accepte les conditions de vente et la politique de confidentialité de CAPITAL.</span>
+            </label>
+
+            <button class="co-submit" id="coSubmit">
+              <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              <span data-i18n="coValid">Valider ma commande</span>
+            </button>
+
+            <div class="co-trust">
+              <svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4v6c0 4.4 3.4 7.6 8 8.5 4.6-.9 8-4.1 8-8.5z"/><path d="M9 12l2 2 4-4"/></svg>
+              <span data-i18n="coTrust">Vos données ne sont ni revendues ni partagées. Commande confirmée par téléphone avant expédition.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confidentialité -->
+      <div class="legal">
+        <h3 data-i18n="lgTitle">Politique de confidentialité &amp; conditions de vente</h3>
+        <p class="up" data-i18n="lgUp">Dernière mise à jour : juillet 2026 — CAPITAL, Hann Mariste, Dakar, Sénégal</p>
+
+        <div class="legal-cols">
+          <h4 data-i18n="lg1">1. Qui traite vos données</h4>
+          <p data-i18n="lg1p">CAPITAL, société d'importation et de distribution de papier et de fournitures de bureau, dont le siège est situé à Hann Mariste, en face de Coris Banque, Dakar, Sénégal, est responsable du traitement des données personnelles collectées via ce site. Pour toute question relative à vos données, vous pouvez nous écrire à contact@capitalpaper.sn ou nous appeler au +221 77 699 00 00.</p>
+
+          <h4 data-i18n="lg2">2. Données que nous collectons</h4>
+          <p data-i18n="lg2p">Nous collectons uniquement les informations que vous nous transmettez volontairement lors d'une commande ou d'une prise de contact :</p>
+          <ul>
+            <li data-i18n-html="lg2a"><strong>Identité et contact</strong> : nom, prénom, numéro de téléphone, adresse email, nom de la société ou de l'institution.</li>
+            <li data-i18n-html="lg2b"><strong>Livraison</strong> : adresse, ville, créneau souhaité et instructions particulières que vous nous communiquez.</li>
+            <li data-i18n-html="lg2c"><strong>Commande</strong> : produits sélectionnés, quantités, montant et moyen de paiement choisi.</li>
+            <li data-i18n-html="lg2d"><strong>Aucune donnée bancaire</strong> n'est saisie, stockée ni traitée sur ce site. Les paiements Wave et Orange Money s'effectuent exclusivement sur les plateformes sécurisées de ces opérateurs.</li>
+          </ul>
+
+          <h4 data-i18n="lg3">3. Pourquoi nous les utilisons</h4>
+          <p data-i18n="lg3p">Vos données servent exclusivement à traiter et livrer votre commande, à vous joindre pour la confirmer ou vous informer d'un imprévu, à établir votre facture et vos documents comptables, et à répondre à vos demandes. Nous ne les utilisons à aucune fin publicitaire sans votre accord explicite.</p>
+
+          <h4 data-i18n="lg4">4. Qui peut y accéder</h4>
+          <p data-i18n="lg4p">Vos informations sont accessibles aux seules équipes de CAPITAL qui en ont besoin — commercial, logistique et comptabilité — ainsi qu'au livreur chargé de votre commande, pour la seule adresse de livraison. Nous ne vendons, ne louons et n'échangeons vos données avec aucun tiers. Elles peuvent être communiquées à une autorité administrative ou judiciaire uniquement lorsque la loi sénégalaise nous y oblige.</p>
+
+          <h4 data-i18n="lg5">5. Durée de conservation</h4>
+          <p data-i18n="lg5p">Les données de commande sont conservées le temps nécessaire au traitement, puis pendant la durée légale de conservation des pièces comptables et commerciales prévue par la réglementation sénégalaise. Au-delà, elles sont supprimées ou anonymisées. Les demandes de contact sans suite sont effacées dans un délai de douze mois.</p>
+
+          <h4 data-i18n="lg6">6. Sécurité</h4>
+          <p data-i18n="lg6p">Nous mettons en œuvre des mesures raisonnables pour protéger vos informations contre la perte, l'accès non autorisé et la divulgation : accès restreint aux personnes habilitées, connexion chiffrée du site et absence totale de stockage de données de paiement. Aucun système n'étant infaillible, nous vous invitons à nous signaler immédiatement toute anomalie.</p>
+
+          <h4 data-i18n="lg7">7. Vos droits</h4>
+          <p data-i18n="lg7p">Conformément à la loi n° 2008-12 du 25 janvier 2008 sur la protection des données à caractère personnel au Sénégal, vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression de vos données. Adressez simplement votre demande à contact@capitalpaper.sn ; nous y répondons sous trente jours. Vous pouvez également saisir la Commission de protection des données personnelles (CDP) du Sénégal.</p>
+
+          <h4 data-i18n="lg8">8. Cookies</h4>
+          <p data-i18n="lg8p">Ce site ne dépose aucun cookie publicitaire ni traceur tiers. Votre panier est conservé uniquement dans la mémoire de votre navigateur pendant votre visite et disparaît à la fermeture de l'onglet.</p>
+
+          <h4 data-i18n="lg9">9. Commandes, prix et paiement</h4>
+          <p data-i18n="lg9p">Les prix affichés sont en francs CFA, toutes taxes comprises, hors frais de livraison éventuels. Une commande passée sur le site constitue une demande ferme, qui devient définitive après confirmation téléphonique par nos équipes. En cas d'indisponibilité, nous vous proposons un délai ou un remboursement intégral. Les tarifs des gros volumes font l'objet d'un devis personnalisé.</p>
+
+          <h4 data-i18n="lg10">10. Livraison</h4>
+          <p data-i18n="lg10p">Nous livrons dans tout le Sénégal. À Dakar et dans la banlieue, la livraison intervient généralement sous vingt-quatre heures ouvrées ; dans les autres régions, sous quarante-huit à soixante-douze heures. Ces délais sont indicatifs et vous sont confirmés lors de l'appel de validation. Les frais de livraison dépendent de la destination et du volume, et vous sont communiqués avant expédition.</p>
+
+          <h4 data-i18n="lg11">11. Retours et réclamations</h4>
+          <p data-i18n="lg11p">Vérifiez l'état de votre commande à la réception. Tout produit endommagé, non conforme ou incomplet doit nous être signalé dans les quarante-huit heures suivant la livraison, emballage d'origine conservé. Nous procédons alors à l'échange ou au remboursement du produit concerné, sans frais pour vous.</p>
+
+          <h4 data-i18n="lg12">12. Modifications et droit applicable</h4>
+          <p data-i18n="lg12p">CAPITAL peut modifier la présente politique à tout moment ; la version en vigueur est celle publiée sur cette page. Les présentes conditions sont régies par le droit sénégalais. En cas de différend, nous privilégions toujours une solution amiable avant toute action devant les juridictions compétentes de Dakar.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="co-done" id="coDone">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h2 data-i18n="doneT">Commande enregistrée</h2>
+      <p data-i18n="doneP">Merci ! Votre commande nous est parvenue. Un conseiller CAPITAL vous appelle très vite pour la confirmer et convenir de la livraison.</p>
+      <p class="refbox" id="doneRef">—</p>
+      <div style="margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="wa-btn" id="donePay" href="#" target="_blank" rel="noopener" style="padding:15px 26px">
+          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.2-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span data-i18n="doneWa">Envoyer sur WhatsApp</span>
+        </a>
+        <button class="mail-btn" id="doneClose" style="padding:15px 26px">
+          <span data-i18n="doneBack">Retour au site</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1166,6 +1834,78 @@ cTelT:{fr:'Téléphone',en:'Phone'},cHrT:{fr:'Horaires',en:'Opening hours'},
 cHr1:{fr:'Lundi à Vendredi — 08h30 à 18h00',en:'Monday to Friday — 8:30 am to 6:00 pm'},
 cHr2:{fr:'Samedi — 09h00 à 13h00',en:'Saturday — 9:00 am to 1:00 pm'},
 formTitle:{fr:'Envoyer un message',en:'Send a message'},
+goCheckout:{fr:'Passer commande',en:'Checkout'},
+coBrandS:{fr:'COMMANDE SÉCURISÉE',en:'SECURE CHECKOUT'},coBack:{fr:'Retour à la boutique',en:'Back to shop'},
+coTitle:{fr:'Finaliser ma commande',en:'Complete my order'},
+coS1:{fr:'Coordonnées',en:'Details'},coS2:{fr:'Livraison',en:'Delivery'},coS3:{fr:'Paiement',en:'Payment'},
+coC1:{fr:'Vos coordonnées',en:'Your details'},
+coC1h:{fr:'Nous en avons besoin pour vous livrer et confirmer la commande.',en:'We need these to deliver and confirm your order.'},
+coName:{fr:'Nom & prénom *',en:'Full name *'},coNameP:{fr:'Votre nom complet',en:'Your full name'},
+coTel:{fr:'Téléphone *',en:'Phone *'},coOrg:{fr:'Société / Institution',en:'Company / Institution'},
+coOrgP:{fr:'Facultatif',en:'Optional'},
+coC2:{fr:'Adresse de livraison',en:'Delivery address'},coC2h:{fr:'Nous livrons partout au Sénégal.',en:'We deliver anywhere in Senegal.'},
+coAddr:{fr:'Adresse *',en:'Address *'},coAddrP:{fr:'Quartier, rue, repère...',en:'District, street, landmark...'},
+coCity:{fr:'Ville *',en:'City *'},coOther:{fr:'Autre',en:'Other'},
+coWhen:{fr:'Créneau souhaité',en:'Preferred slot'},
+coW1:{fr:'Dès que possible',en:'As soon as possible'},coW2:{fr:'Matin (8h – 12h)',en:'Morning (8am – 12pm)'},
+coW3:{fr:'Après-midi (14h – 18h)',en:'Afternoon (2pm – 6pm)'},
+coNote:{fr:'Précisions',en:'Additional notes'},
+coNoteP:{fr:'Étage, personne à contacter, instructions particulières...',en:'Floor, contact person, special instructions...'},
+coC3:{fr:'Moyen de paiement',en:'Payment method'},
+coC3h:{fr:'Choisissez comment vous souhaitez régler votre commande.',en:'Choose how you would like to pay.'},
+pwD:{fr:'Paiement instantané, sans frais',en:'Instant payment, no fees'},pwT:{fr:'Recommandé',en:'Recommended'},
+poD:{fr:'Paiement mobile sécurisé',en:'Secure mobile payment'},
+pcT:{fr:'Espèces à la livraison',en:'Cash on delivery'},pcD:{fr:'Vous payez au livreur',en:'Pay the courier'},
+pbT:{fr:'Virement bancaire',en:'Bank transfer'},pbD:{fr:'Coordonnées envoyées après validation',en:'Details sent after validation'},
+coSum:{fr:'Votre commande',en:'Your order'},coSub:{fr:'Sous-total',en:'Subtotal'},
+coDeliv:{fr:'Livraison',en:'Delivery'},coDelivV:{fr:'À confirmer',en:'To be confirmed'},coTotal:{fr:'Total',en:'Total'},
+coAgreeT:{fr:'J\'accepte les conditions de vente et la politique de confidentialité de CAPITAL.',en:'I accept CAPITAL\'s terms of sale and privacy policy.'},
+coValid:{fr:'Valider ma commande',en:'Confirm my order'},
+coTrust:{fr:'Vos données ne sont ni revendues ni partagées. Commande confirmée par téléphone avant expédition.',en:'Your data is never sold or shared. Order confirmed by phone before dispatch.'},
+lgTitle:{fr:'Politique de confidentialité & conditions de vente',en:'Privacy policy & terms of sale'},
+lgUp:{fr:'Dernière mise à jour : juillet 2026 — CAPITAL, Hann Mariste, Dakar, Sénégal',en:'Last updated: July 2026 — CAPITAL, Hann Mariste, Dakar, Senegal'},
+lg1:{fr:'1. Qui traite vos données',en:'1. Who processes your data'},
+lg1p:{fr:'CAPITAL, société d\'importation et de distribution de papier et de fournitures de bureau, dont le siège est situé à Hann Mariste, en face de Coris Banque, Dakar, Sénégal, est responsable du traitement des données personnelles collectées via ce site. Pour toute question relative à vos données, vous pouvez nous écrire à contact@capitalpaper.sn ou nous appeler au +221 77 699 00 00.',en:'CAPITAL, an importer and distributor of paper and office supplies, headquartered at Hann Mariste, opposite Coris Bank, Dakar, Senegal, is responsible for processing the personal data collected through this site. For any question about your data, write to contact@capitalpaper.sn or call +221 77 699 00 00.'},
+lg2:{fr:'2. Données que nous collectons',en:'2. Data we collect'},
+lg2p:{fr:'Nous collectons uniquement les informations que vous nous transmettez volontairement lors d\'une commande ou d\'une prise de contact :',en:'We only collect the information you voluntarily provide when ordering or contacting us:'},
+lg2a:{fr:'<strong>Identité et contact</strong> : nom, prénom, numéro de téléphone, adresse email, nom de la société ou de l\'institution.',en:'<strong>Identity and contact</strong>: name, phone number, email address, company or institution name.'},
+lg2b:{fr:'<strong>Livraison</strong> : adresse, ville, créneau souhaité et instructions particulières que vous nous communiquez.',en:'<strong>Delivery</strong>: address, city, preferred slot and any special instructions you give us.'},
+lg2c:{fr:'<strong>Commande</strong> : produits sélectionnés, quantités, montant et moyen de paiement choisi.',en:'<strong>Order</strong>: selected products, quantities, amount and chosen payment method.'},
+lg2d:{fr:'<strong>Aucune donnée bancaire</strong> n\'est saisie, stockée ni traitée sur ce site. Les paiements Wave et Orange Money s\'effectuent exclusivement sur les plateformes sécurisées de ces opérateurs.',en:'<strong>No banking data</strong> is entered, stored or processed on this site. Wave and Orange Money payments take place solely on those operators\' secure platforms.'},
+lg3:{fr:'3. Pourquoi nous les utilisons',en:'3. Why we use it'},
+lg3p:{fr:'Vos données servent exclusivement à traiter et livrer votre commande, à vous joindre pour la confirmer ou vous informer d\'un imprévu, à établir votre facture et vos documents comptables, et à répondre à vos demandes. Nous ne les utilisons à aucune fin publicitaire sans votre accord explicite.',en:'Your data is used solely to process and deliver your order, to reach you for confirmation or in case of an issue, to issue your invoice and accounting documents, and to answer your requests. We never use it for advertising without your explicit consent.'},
+lg4:{fr:'4. Qui peut y accéder',en:'4. Who can access it'},
+lg4p:{fr:'Vos informations sont accessibles aux seules équipes de CAPITAL qui en ont besoin — commercial, logistique et comptabilité — ainsi qu\'au livreur chargé de votre commande, pour la seule adresse de livraison. Nous ne vendons, ne louons et n\'échangeons vos données avec aucun tiers. Elles peuvent être communiquées à une autorité administrative ou judiciaire uniquement lorsque la loi sénégalaise nous y oblige.',en:'Your information is accessible only to the CAPITAL teams that need it — sales, logistics and accounting — and to the courier handling your order, for the delivery address alone. We never sell, rent or trade your data. It may be disclosed to an administrative or judicial authority only where Senegalese law requires it.'},
+lg5:{fr:'5. Durée de conservation',en:'5. Retention period'},
+lg5p:{fr:'Les données de commande sont conservées le temps nécessaire au traitement, puis pendant la durée légale de conservation des pièces comptables et commerciales prévue par la réglementation sénégalaise. Au-delà, elles sont supprimées ou anonymisées. Les demandes de contact sans suite sont effacées dans un délai de douze mois.',en:'Order data is kept for as long as processing requires, then for the legal retention period for accounting and commercial records under Senegalese regulations. After that it is deleted or anonymised. Contact requests with no follow-up are erased within twelve months.'},
+lg6:{fr:'6. Sécurité',en:'6. Security'},
+lg6p:{fr:'Nous mettons en œuvre des mesures raisonnables pour protéger vos informations contre la perte, l\'accès non autorisé et la divulgation : accès restreint aux personnes habilitées, connexion chiffrée du site et absence totale de stockage de données de paiement. Aucun système n\'étant infaillible, nous vous invitons à nous signaler immédiatement toute anomalie.',en:'We apply reasonable measures to protect your information against loss, unauthorised access and disclosure: restricted access to authorised staff, encrypted site connection and no storage of payment data whatsoever. As no system is infallible, please report any anomaly to us immediately.'},
+lg7:{fr:'7. Vos droits',en:'7. Your rights'},
+lg7p:{fr:'Conformément à la loi n° 2008-12 du 25 janvier 2008 sur la protection des données à caractère personnel au Sénégal, vous disposez d\'un droit d\'accès, de rectification, d\'opposition et de suppression de vos données. Adressez simplement votre demande à contact@capitalpaper.sn ; nous y répondons sous trente jours. Vous pouvez également saisir la Commission de protection des données personnelles (CDP) du Sénégal.',en:'Under Senegalese law no. 2008-12 of 25 January 2008 on personal data protection, you have the right to access, rectify, object to and delete your data. Simply send your request to contact@capitalpaper.sn; we reply within thirty days. You may also refer the matter to Senegal\'s Personal Data Protection Commission (CDP).'},
+lg8:{fr:'8. Cookies',en:'8. Cookies'},
+lg8p:{fr:'Ce site ne dépose aucun cookie publicitaire ni traceur tiers. Votre panier est conservé uniquement dans la mémoire de votre navigateur pendant votre visite et disparaît à la fermeture de l\'onglet.',en:'This site places no advertising cookies or third-party trackers. Your cart lives only in your browser\'s memory during your visit and disappears when you close the tab.'},
+lg9:{fr:'9. Commandes, prix et paiement',en:'9. Orders, prices and payment'},
+lg9p:{fr:'Les prix affichés sont en francs CFA, toutes taxes comprises, hors frais de livraison éventuels. Une commande passée sur le site constitue une demande ferme, qui devient définitive après confirmation téléphonique par nos équipes. En cas d\'indisponibilité, nous vous proposons un délai ou un remboursement intégral. Les tarifs des gros volumes font l\'objet d\'un devis personnalisé.',en:'Prices are shown in CFA francs, all taxes included, excluding any delivery charges. An order placed on the site is a firm request that becomes final once confirmed by phone by our teams. If an item is unavailable we offer a lead time or a full refund. Large volumes are quoted individually.'},
+lg10:{fr:'10. Livraison',en:'10. Delivery'},
+lg10p:{fr:'Nous livrons dans tout le Sénégal. À Dakar et dans la banlieue, la livraison intervient généralement sous vingt-quatre heures ouvrées ; dans les autres régions, sous quarante-huit à soixante-douze heures. Ces délais sont indicatifs et vous sont confirmés lors de l\'appel de validation. Les frais de livraison dépendent de la destination et du volume, et vous sont communiqués avant expédition.',en:'We deliver throughout Senegal. In Dakar and its suburbs, delivery usually takes place within twenty-four working hours; in other regions, within forty-eight to seventy-two hours. These times are indicative and confirmed during the validation call. Delivery charges depend on destination and volume and are given to you before dispatch.'},
+lg11:{fr:'11. Retours et réclamations',en:'11. Returns and claims'},
+lg11p:{fr:'Vérifiez l\'état de votre commande à la réception. Tout produit endommagé, non conforme ou incomplet doit nous être signalé dans les quarante-huit heures suivant la livraison, emballage d\'origine conservé. Nous procédons alors à l\'échange ou au remboursement du produit concerné, sans frais pour vous.',en:'Check your order on arrival. Any damaged, non-compliant or incomplete product must be reported within forty-eight hours of delivery, with the original packaging kept. We then exchange or refund the item concerned at no cost to you.'},
+lg12:{fr:'12. Modifications et droit applicable',en:'12. Changes and governing law'},
+lg12p:{fr:'CAPITAL peut modifier la présente politique à tout moment ; la version en vigueur est celle publiée sur cette page. Les présentes conditions sont régies par le droit sénégalais. En cas de différend, nous privilégions toujours une solution amiable avant toute action devant les juridictions compétentes de Dakar.',en:'CAPITAL may amend this policy at any time; the version in force is the one published on this page. These terms are governed by Senegalese law. In case of dispute we always seek an amicable solution before any action before the competent courts of Dakar.'},
+doneT:{fr:'Commande enregistrée',en:'Order received'},
+doneP:{fr:'Merci ! Votre commande nous est parvenue. Un conseiller CAPITAL vous appelle très vite pour la confirmer et convenir de la livraison.',en:'Thank you! We have received your order. A CAPITAL adviser will call you shortly to confirm it and arrange delivery.'},
+doneWa:{fr:'Envoyer sur WhatsApp',en:'Send on WhatsApp'},doneBack:{fr:'Retour au site',en:'Back to site'},
+viewProd:{fr:'Voir le produit',en:'View product'},viewProd2:{fr:'Voir le produit',en:'View product'},
+inStock:{fr:'En stock — expédition sous 24 h',en:'In stock — ships within 24 h'},
+pdpWhy:{fr:'Pourquoi CAPITAL',en:'Why CAPITAL'},pdpSpecs:{fr:'Caractéristiques',en:'Specifications'},
+addCart3:{fr:'Ajouter au panier',en:'Add to cart'},
+payTitle:{fr:'Moyens de paiement',en:'Payment methods'},
+payWaveD:{fr:'Paiement instantané',en:'Instant payment'},payOmD:{fr:'Paiement mobile',en:'Mobile payment'},
+payCash:{fr:'Espèces',en:'Cash'},payCashD:{fr:'À la livraison',en:'On delivery'},
+payBank:{fr:'Virement',en:'Bank transfer'},payBankD:{fr:'Pour les entreprises',en:'For businesses'},
+payHint:{fr:'Réglez en ligne via Wave ou Orange Money, ou payez à la réception de votre commande.',en:'Pay online with Wave or Orange Money, or pay when your order arrives.'},
+pdpShip:{fr:'Livraison partout au Sénégal — Dakar en 24 h, régions sous 48 à 72 h. Livraison offerte dès 10 cartons.',en:'Delivery nationwide in Senegal — Dakar within 24 h, regions within 48–72 h. Free delivery from 10 boxes.'},
+waTip:{fr:'Discutons sur WhatsApp',en:'Chat with us on WhatsApp'},
 navShop:{fr:'Boutique',en:'Shop'},
 shopEyebrow:{fr:'Boutique',en:'Shop'},
 shopLead:{fr:'Commandez votre papier <span class="gold">en quelques clics</span>',en:'Order your paper <span class="gold">in a few clicks</span>'},
@@ -1217,6 +1957,7 @@ function setLang(l){
   document.getElementById('btnEn').classList.toggle('on',l==='en');
   goSlide(cur);
   if(typeof renderCart==='function')renderCart();
+  if(typeof openPDP==='function'&&document.getElementById('pdp').classList.contains('open'))openPDP(PDP_ID);
   document.title=l==='fr'?'CAPITAL — Papier Premium | La qualité qui valorise chaque document':'CAPITAL — Premium Paper | The quality that enhances every document';
 }
 document.getElementById('btnFr').addEventListener('click',()=>setLang('fr'));
@@ -1226,10 +1967,10 @@ document.getElementById('btnEn').addEventListener('click',()=>setLang('en'));
 const WA_NUMBER='221776990000';
 const SHOP_MAIL='contact@capitalpaper.sn';
 const P={
-  ramette:{price:3500,img:'assets/ramette.jpg',
+  ramette:{price:3500,img:'assets/produits/ramette-1.jpg',
     fr:{n:'Ramette CAPITAL Premium A4',u:'500 feuilles · 80 g/m²'},
     en:{n:'CAPITAL Premium A4 ream',u:'500 sheets · 80 gsm'}},
-  carton:{price:14500,img:'assets/ramette.jpg',
+  carton:{price:14500,img:'assets/produits/carton-1.jpg',
     fr:{n:'Carton de 5 ramettes',u:'2 500 feuilles · 80 g/m²'},
     en:{n:'Box of 5 reams',u:'2,500 sheets · 80 gsm'}}
 };
@@ -1332,15 +2073,276 @@ ovl.addEventListener('click',closeCart);
 addEventListener('keydown',e=>{if(e.key==='Escape')closeCart();});
 
 /* --- commande par email --- */
-document.getElementById('mailOrder').addEventListener('click',()=>{
-  const ids=Object.keys(CART).filter(k=>CART[k]>0);
-  if(!ids.length)return;
-  let total=0;ids.forEach(id=>total+=P[id].price*CART[id]);
-  const subj=LANG==='fr'?'Commande CAPITAL':'CAPITAL order';
-  location.href='mailto:'+SHOP_MAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(orderText(ids,total));
-});
+document.getElementById('goCheckout').addEventListener('click',()=>openCheckout());
 
 renderCart();
+
+/* ===================== FICHE PRODUIT ===================== */
+const PDP={
+  ramette:{
+    ref:'CAP-A4-80', price:3500, old:null, save:null,
+    imgs:['assets/produits/ramette-1.jpg','assets/produits/ramette-2.jpg','assets/produits/ramette-3.jpg','assets/produits/ramette-4.jpg'],
+    fr:{
+      badge:'À l\u2019unité',
+      n:'Ramette CAPITAL Premium A4',
+      s:'500 feuilles · 80 g/m² · Format A4 · 210 × 297 mm',
+      d:'Le papier qui donne à vos documents l\u2019allure qu\u2019ils méritent. <strong>Plus lisse, plus épais</strong>, la ramette CAPITAL Premium a été conçue pour les bureaux qui ne transigent pas sur le rendu : des textes d\u2019une netteté parfaite, des noirs profonds, des couleurs fidèles. Sa surface calibrée traverse photocopieurs et imprimantes sans un bourrage, sans une poussière. Un contrat, une facture, un mémoire — chaque page imprimée parle de vous avant même d\u2019être lue.',
+      b:['Blancheur élevée pour un contraste maximal','Épaisseur renforcée : pas de transparence au verso','Surface lisse, zéro bourrage et zéro poussière','Compatible photocopieurs, laser et jet d\u2019encre','Conditionnement scellé qui protège de l\u2019humidité'],
+      sp:[['Grammage','80 g/m²'],['Format','A4 — 210 × 297 mm'],['Contenu','500 feuilles'],['Usage','Copie · Laser · Jet d\u2019encre'],['Finition','Plus lisse · Plus épais'],['Origine','CAPITAL Premium']]
+    },
+    en:{
+      badge:'Single unit',
+      n:'CAPITAL Premium A4 ream',
+      s:'500 sheets · 80 gsm · A4 · 210 × 297 mm',
+      d:'The paper that gives your documents the presence they deserve. <strong>Smoother and thicker</strong>, the CAPITAL Premium ream is built for offices that refuse to compromise on output: perfectly crisp text, deep blacks, faithful colours. Its calibrated surface runs through copiers and printers without a single jam or speck of dust. A contract, an invoice, a report — every printed page speaks for you before it is even read.',
+      b:['High whiteness for maximum contrast','Reinforced thickness: no show-through','Smooth surface, no jams and no dust','Works with copiers, laser and inkjet printers','Sealed packaging that protects from humidity'],
+      sp:[['Weight','80 gsm'],['Size','A4 — 210 × 297 mm'],['Contents','500 sheets'],['Use','Copy · Laser · Inkjet'],['Finish','Smoother · Thicker'],['Range','CAPITAL Premium']]
+    }
+  },
+  carton:{
+    ref:'CAP-A4-80-C5', price:14500, old:17500, save:3000,
+    imgs:['assets/produits/carton-1.jpg','assets/produits/carton-2.jpg','assets/produits/carton-3.jpg','assets/produits/carton-4.jpg'],
+    fr:{
+      badge:'Le plus avantageux',
+      n:'Carton de 5 ramettes',
+      s:'2 500 feuilles · 80 g/m² · Format A4',
+      d:'Le format qui fait tourner un bureau sans y penser. Cinq ramettes CAPITAL Premium réunies dans un carton protégé, soit <strong>2 500 feuilles</strong> d\u2019avance — de quoi couvrir des semaines d\u2019impression sans rupture. C\u2019est le choix des administrations, des écoles et des entreprises qui préfèrent commander une fois et bien. Et à 14 500 FCFA le carton, chaque ramette vous revient à 2 900 FCFA au lieu de 3 500.',
+      b:['5 ramettes scellées de 500 feuilles','2 900 FCFA la ramette au lieu de 3 500','Carton renforcé, stockage et transport faciles','Idéal bureaux, écoles et administrations','Une seule commande pour des semaines d\u2019autonomie'],
+      sp:[['Grammage','80 g/m²'],['Format','A4 — 210 × 297 mm'],['Contenu','5 × 500 feuilles'],['Total','2 500 feuilles'],['Prix / ramette','2 900 FCFA'],['Économie','3 000 FCFA']]
+    },
+    en:{
+      badge:'Best value',
+      n:'Box of 5 reams',
+      s:'2,500 sheets · 80 gsm · A4',
+      d:'The format that keeps an office running without a second thought. Five CAPITAL Premium reams in one protected box — <strong>2,500 sheets</strong> in reserve, enough to cover weeks of printing without a break. It is the choice of administrations, schools and companies that would rather order once and order well. At 14,500 FCFA a box, each ream costs you 2,900 FCFA instead of 3,500.',
+      b:['5 sealed reams of 500 sheets','2,900 FCFA per ream instead of 3,500','Reinforced box, easy to store and transport','Ideal for offices, schools and administrations','One order, weeks of autonomy'],
+      sp:[['Weight','80 gsm'],['Size','A4 — 210 × 297 mm'],['Contents','5 × 500 sheets'],['Total','2,500 sheets'],['Price / ream','2,900 FCFA'],['Saving','3,000 FCFA']]
+    }
+  }
+};
+let PDP_ID='ramette';
+
+const pdpEl=document.getElementById('pdp'), pdpOvl=document.getElementById('pdpOverlay');
+
+function openPDP(id){
+  PDP_ID=id;
+  const p=PDP[id], t=p[LANG];
+  document.getElementById('pdpBadge').textContent=t.badge;
+  document.getElementById('pdpRef').textContent=p.ref;
+  document.getElementById('pdpName').textContent=t.n;
+  document.getElementById('pdpSub').textContent=t.s;
+  document.getElementById('pdpPrice').textContent=p.price.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g,' ');
+  const oldEl=document.getElementById('pdpOld'), saveEl=document.getElementById('pdpSave');
+  if(p.old){
+    oldEl.textContent=p.old.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g,' ');
+    saveEl.textContent=(LANG==='fr'?'−':'−')+' '+money(p.save);
+    oldEl.style.display='';saveEl.style.display='';
+  }else{oldEl.style.display='none';saveEl.style.display='none';}
+  document.getElementById('pdpDesc').innerHTML=t.d;
+  document.getElementById('pdpBullets').innerHTML=t.b.map(x=>'<li>'+x+'</li>').join('');
+  document.getElementById('pdpSpecs').innerHTML=t.sp.map(x=>'<div><p class="k">'+x[0]+'</p><p class="v">'+x[1]+'</p></div>').join('');
+  document.getElementById('galMain').src=p.imgs[0];
+  document.getElementById('galMain').alt=t.n;
+  document.getElementById('galThumbs').innerHTML=p.imgs.map((src,i)=>
+    '<button class="gal-th'+(i?'':' on')+'" data-gi="'+i+'"><img src="'+src+'" alt=""></button>').join('');
+  document.querySelectorAll('[data-gi]').forEach(b=>b.addEventListener('click',()=>{
+    const m=document.getElementById('galMain');
+    m.style.opacity=0;
+    setTimeout(()=>{m.src=p.imgs[b.dataset.gi];m.style.opacity=1;},180);
+    document.querySelectorAll('[data-gi]').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+  }));
+  document.getElementById('q-pdp').value=1;
+  pdpEl.classList.add('open');pdpOvl.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePDP(){pdpEl.classList.remove('open');pdpOvl.classList.remove('open');document.body.style.overflow='';}
+
+document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>openPDP(el.dataset.view)));
+document.getElementById('pdpClose').addEventListener('click',closePDP);
+pdpOvl.addEventListener('click',closePDP);
+addEventListener('keydown',e=>{if(e.key==='Escape')closePDP();});
+
+document.getElementById('pdpMinus').addEventListener('click',()=>{
+  const i=document.getElementById('q-pdp');i.value=Math.max(1,(parseInt(i.value)||1)-1);});
+document.getElementById('pdpPlus').addEventListener('click',()=>{
+  const i=document.getElementById('q-pdp');i.value=Math.min(999,(parseInt(i.value)||1)+1);});
+document.getElementById('pdpAdd').addEventListener('click',()=>{
+  const q=Math.max(1,parseInt(document.getElementById('q-pdp').value)||1);
+  CART[PDP_ID]=(CART[PDP_ID]||0)+q;
+  renderCart();showToast(CT[LANG].added);closePDP();openCart();
+});
+
+
+
+/* ===================== PAGE COMMANDE ===================== */
+const CO=document.getElementById('checkout');
+let PAY={id:'wave',link:'https://pay.wave.com/m/CAPITAL-SN-0000/c/sn/'};
+
+document.querySelectorAll('[data-pay]').forEach(o=>o.addEventListener('click',()=>{
+  document.querySelectorAll('[data-pay]').forEach(x=>x.classList.remove('on'));
+  o.classList.add('on');
+  PAY={id:o.dataset.pay,link:o.dataset.link};
+}));
+
+function coTotal(){
+  let t=0;Object.keys(CART).forEach(id=>t+=P[id].price*CART[id]);return t;
+}
+function openCheckout(){
+  const ids=Object.keys(CART).filter(k=>CART[k]>0);
+  if(!ids.length){showToast(CT[LANG].empty);return;}
+  closeCart();
+  document.getElementById('coForm').style.display='';
+  document.getElementById('coDone').classList.remove('show');
+  renderSummary();
+  CO.classList.add('open');
+  document.body.style.overflow='hidden';
+  CO.scrollTop=0;
+}
+function closeCheckout(){CO.classList.remove('open');document.body.style.overflow='';}
+
+function renderSummary(){
+  const ids=Object.keys(CART).filter(k=>CART[k]>0);
+  const t=coTotal();
+  document.getElementById('sumItems').innerHTML=ids.map(id=>{
+    const p=P[id];
+    return '<div class="sum-i"><div class="im"><img src="'+p.img+'" alt=""></div>'
+      +'<div class="tx"><h4>'+p[LANG].n+'</h4><p>'+CART[id]+' × '+money(p.price)+'</p></div>'
+      +'<span class="pr">'+money(p.price*CART[id])+'</span></div>';
+  }).join('');
+  document.getElementById('sumSub').textContent=money(t);
+  document.getElementById('sumTotal').textContent=money(t);
+}
+
+document.getElementById('coBack').addEventListener('click',closeCheckout);
+document.getElementById('doneClose').addEventListener('click',closeCheckout);
+
+document.getElementById('coSubmit').addEventListener('click',()=>{
+  const req=['coName','coTel','coAddr'];
+  let ok=true;
+  req.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el.value.trim()){el.classList.add('err');ok=false;}else el.classList.remove('err');
+  });
+  if(!ok){
+    document.querySelector('.co-in.err').scrollIntoView({behavior:'smooth',block:'center'});
+    showToast(LANG==='fr'?'Champs obligatoires manquants':'Required fields missing');return;
+  }
+  if(!document.getElementById('coAgree').checked){
+    showToast(LANG==='fr'?'Veuillez accepter les conditions':'Please accept the terms');return;
+  }
+  const ref='CAP-'+Date.now().toString().slice(-6);
+  const ids=Object.keys(CART).filter(k=>CART[k]>0);
+  const payN={wave:'Wave',om:'Orange Money',cash:LANG==='fr'?'Espèces à la livraison':'Cash on delivery',bank:LANG==='fr'?'Virement bancaire':'Bank transfer'}[PAY.id];
+  const g=id=>document.getElementById(id).value.trim();
+  const msg=(LANG==='fr'?'*NOUVELLE COMMANDE CAPITAL*':'*NEW CAPITAL ORDER*')+'\n'
+    +(LANG==='fr'?'Réf. ':'Ref. ')+ref+'\n\n'
+    +ids.map(id=>'• '+CART[id]+' × '+P[id][LANG].n+' — '+money(P[id].price*CART[id])).join('\n')
+    +'\n'+(LANG==='fr'?'TOTAL : ':'TOTAL: ')+money(coTotal())+'\n\n'
+    +(LANG==='fr'?'Client : ':'Customer: ')+g('coName')+'\n'
+    +(LANG==='fr'?'Tél : ':'Phone: ')+g('coTel')+'\n'
+    +(g('coMail')?'Email : '+g('coMail')+'\n':'')
+    +(g('coOrg')?(LANG==='fr'?'Société : ':'Company: ')+g('coOrg')+'\n':'')
+    +(LANG==='fr'?'Adresse : ':'Address: ')+g('coAddr')+', '+g('coCity')+'\n'
+    +(LANG==='fr'?'Créneau : ':'Time slot: ')+g('coWhen')+'\n'
+    +(g('coNote')?(LANG==='fr'?'Note : ':'Note: ')+g('coNote')+'\n':'')
+    +(LANG==='fr'?'Paiement : ':'Payment: ')+payN;
+
+  document.getElementById('doneRef').textContent=ref;
+  document.getElementById('donePay').href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);
+  document.getElementById('coForm').style.display='none';
+  document.getElementById('coDone').classList.add('show');
+  CO.scrollTop=0;
+  CART={};renderCart();
+});
+
+/* ===================== MOTEUR D'ANIMATION ===================== */
+(function(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+
+  /* révélations directionnelles */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}
+  }),{threshold:.1,rootMargin:'0px 0px -8% 0px'});
+
+  document.querySelectorAll('.eyebrow').forEach(el=>io.observe(el));
+
+  /* décalage en cascade dans les grilles */
+  [['.shop-grid .card',110],['.pole',90],['.exp-card',90],['.member',120],
+   ['.stat',110],['.chip',45],['.trust-items .t',110],['.doc-item',110],
+   ['.exp-row',100],['.shop-info .i',110],['.c-item',90]].forEach(([sel,gap])=>{
+    document.querySelectorAll(sel).forEach((el,i)=>{
+      el.classList.add('reveal-up');
+      el.style.transitionDelay=(i*gap)+'ms';
+      io.observe(el);
+    });
+  });
+
+  /* colonnes latérales */
+  document.querySelectorAll('.apropos-left,.exp-left,.contact-left,.ref-top .big')
+    .forEach(el=>{el.classList.add('reveal-left');io.observe(el);});
+  document.querySelectorAll('.apropos-right,.exp-right,.form-card,.ref-top p:not(.big)')
+    .forEach(el=>{el.classList.add('reveal-right');io.observe(el);});
+  document.querySelectorAll('.photo-frame,.white-card,.partner-card,.map-wrap,.logos-band')
+    .forEach(el=>{el.classList.add('reveal-zoom');io.observe(el);});
+
+  /* titres mot à mot */
+  document.querySelectorAll('.serif-lead,.ref-top .big,.contact-left h2').forEach(el=>{
+    if(el.dataset.split)return;el.dataset.split=1;
+    const wrap=n=>{
+      [...n.childNodes].forEach(c=>{
+        if(c.nodeType===3){
+          const f=document.createDocumentFragment();
+          c.textContent.split(/(\s+)/).forEach(w=>{
+            if(!w.trim()){f.appendChild(document.createTextNode(w));return;}
+            const sp=document.createElement('span');sp.className='word';sp.textContent=w;
+            f.appendChild(sp);
+          });
+          n.replaceChild(f,c);
+        }else if(c.nodeType===1)wrap(c);
+      });
+    };
+    wrap(el);
+    const words=el.querySelectorAll('.word');
+    const wo=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){
+        words.forEach((w,i)=>setTimeout(()=>w.classList.add('vis'),i*45));
+        wo.unobserve(e.target);
+      }
+    }),{threshold:.25});
+    wo.observe(el);
+  });
+
+  /* parallaxe + header compact */
+  const paras=[...document.querySelectorAll('.about-photo img,.exp-photo img,.prod-strip img,.fleet-photo img')];
+  paras.forEach(el=>el.setAttribute('data-para',''));
+  const hdr=document.querySelector('header');
+  let ticking=false;
+  function frame(){
+    const y=scrollY;
+    hdr.style.padding=y>60?'8px 40px':'';
+    hdr.style.boxShadow=y>60?'0 4px 24px rgba(18,35,71,.1)':'';
+    paras.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.bottom>0&&r.top<innerHeight){
+        const p=(r.top+r.height/2-innerHeight/2)/innerHeight;
+        el.style.transform='translateY('+(p*26).toFixed(1)+'px) scale(1.1)';
+      }
+    });
+    ticking=false;
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(frame);}},{passive:true});
+  frame();
+
+  /* effet magnétique sur les boutons ronds */
+  document.querySelectorAll('.cart-fab,.wa-fab').forEach(b=>{
+    b.addEventListener('mousemove',e=>{
+      const r=b.getBoundingClientRect();
+      b.style.transform='scale(1.06) translate('+((e.clientX-r.left-r.width/2)*.22).toFixed(1)+'px,'+((e.clientY-r.top-r.height/2)*.22).toFixed(1)+'px)';
+    });
+    b.addEventListener('mouseleave',()=>b.style.transform='');
+  });
+})();
 
 </script>
 </body>
